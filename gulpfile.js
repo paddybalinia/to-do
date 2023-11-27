@@ -6,6 +6,7 @@ const scss = require("gulp-sass")(require("sass"));
 const minify = require("gulp-minify");
 const autoprefixer = require("gulp-autoprefixer");
 const concat = require("gulp-concat");
+const htmlmin = require("gulp-htmlmin"); // Nuevo módulo añadido
 
 const paths = {
   styles_scss: {
@@ -27,6 +28,10 @@ const paths = {
   fonts: {
     src: "static/src/fonts/**/*",
     dest: "static/dist/fonts",
+  },
+  html: {
+    src: "static/src/*.html", // Actualiza la ruta según tu estructura de archivos HTML
+    dest: "static/dist",
   },
 };
 
@@ -82,6 +87,12 @@ function combineScripts() {
     .pipe(gulp.dest("static/src/js"));
 }
 
+function minifyHTML() {
+  return gulp
+    .src("static/src/*.html") // Actualiza la ruta según tu estructura de archivos HTML
+    .pipe(htmlmin({ collapseWhitespace: true }))
+    .pipe(gulp.dest("static/dist/")); // Actualiza la carpeta de destino según tu preferencia
+}
 function watchFiles() {
   gulp.watch(paths.images.src, optimizeImages);
   gulp.watch(paths.styles_scss.src, compileSass);
@@ -89,6 +100,7 @@ function watchFiles() {
   gulp.watch(jsFiles, combineScripts);
   gulp.watch(paths.scripts.src, minifyScripts);
   gulp.watch(paths.fonts.src, optimizeFonts);
+  gulp.watch(paths.html.src, minifyHTML);
 }
 
 const buildTasks = gulp.parallel(
@@ -97,7 +109,8 @@ const buildTasks = gulp.parallel(
   minifyScripts,
   optimizeImages,
   combineScripts,
-  optimizeFonts
+  optimizeFonts,
+  minifyHTML
 );
 
 exports.build = buildTasks;
