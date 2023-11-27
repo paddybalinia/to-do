@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /private/
+
+Sitemap: todo.com/sitemap.xml
