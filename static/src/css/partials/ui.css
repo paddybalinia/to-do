@@ -1,0 +1,13 @@
+[data-lazyload] {
+  opacity: 0;
+}
+
+.hide_mobile {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hide_mobile {
+    display: block;
+  }
+}

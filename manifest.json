@@ -1,0 +1,28 @@
+{
+  "short_name": "Tercer Espacio",
+  "name": "Tercer Espacio",
+  "description": "Sitio web personal de Tercer Espacio",
+  "icons": [
+    {
+      "src": "static/dist/images/apps/precomposed-128.png",
+      "type": "image/png",
+      "sizes": "128x128",
+      "purpose": "maskable"
+    },
+    {
+      "src": "static/dist/images/apps/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "static/dist/images/apps/android-chrome-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ],
+  "background_color": "#ffffff",
+  "orientation": "portrait",
+  "theme_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/?utm_source=web_app_manifest"
+}
