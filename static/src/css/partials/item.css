@@ -1,0 +1,43 @@
+.item {
+  background: white;
+  -webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
+  padding: 10px 15px;
+  border-radius: 4px;
+  gap: 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.item__dropdown {
+  position: absolute;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+  opacity: 0;
+}
+.item__toggle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 5px;
+}
+.item__toggle__dots {
+  border-radius: 125px;
+  background: grey;
+  display: inline-block;
+  height: 7px;
+  width: 7px;
+}
+
+.list {
+  max-width: 868px;
+  margin: 30px auto 0;
+}

@@ -1,0 +1,43 @@
+.item {
+    background: white;
+    box-shadow: 0 1px 7px rgb(0 0 0 / 15%);
+    padding: 10px 15px;
+    border-radius: 4px;
+    gap: 8px;
+    display: flex;
+    justify-content: space-between;
+
+
+    &__dropdown {
+
+        position: absolute;
+        right: 0;
+        top: 0;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    &__toggle {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+
+        &__dots {
+            border-radius: 125px;
+            background: grey;
+            display: inline-block;
+            height: 7px;
+            width: 7px;
+        }
+
+    }
+}
+
+.list {
+    max-width: 868px;
+    margin: 30px auto 0;
+
+    // display: flex;
+    // justify-content: center;
+    // align-content: center;
+}

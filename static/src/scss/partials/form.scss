@@ -1,0 +1,30 @@
+.form {
+    background: white;
+    box-shadow: 0 1px 7px rgb(0 0 0 / 15%);
+    padding: 10px 15px;
+    border-radius: 4px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+
+    &__text {
+        border: 0;
+        width: 740px;
+    }
+
+    &__add {
+        background: #2eb0fc;
+        color: white;
+        font-weight: bold;
+        padding: 8px 14px 6px;
+        border-radius: 4px;
+        text-transform: uppercase;
+    }
+
+    &__icon {
+        position: relative;
+        top: 4px;
+    }
+}
