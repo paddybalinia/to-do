@@ -250,6 +250,21 @@ input {
     display: block;
   }
 }
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+  padding-top: 20px;
+}
+
 .navigation {
   background: #f4f4f4;
   color: black;
@@ -490,4 +505,82 @@ input {
     -o-object-fit: cover;
     object-fit: cover;
   }
+}
+.form {
+  background: white;
+  -webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
+  padding: 10px 15px;
+  border-radius: 4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.form__text {
+  border: 0;
+  width: 740px;
+}
+.form__add {
+  background: #2eb0fc;
+  color: white;
+  font-weight: bold;
+  padding: 8px 14px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.form__icon {
+  position: relative;
+  top: 4px;
+}
+
+.item {
+  background: white;
+  -webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
+  padding: 10px 15px;
+  border-radius: 4px;
+  gap: 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.item__dropdown {
+  position: absolute;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+  opacity: 0;
+}
+.item__toggle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 5px;
+}
+.item__toggle__dots {
+  border-radius: 125px;
+  background: grey;
+  display: inline-block;
+  height: 7px;
+  width: 7px;
+}
+
+.list {
+  max-width: 868px;
+  margin: 30px auto 0;
 }
