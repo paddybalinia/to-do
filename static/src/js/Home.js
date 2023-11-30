@@ -98,6 +98,36 @@
     spanEdit.classList.add("item__txt");
     spanEdit.textContent = "Editar";
 
+    const buttonRemove = document.createElement("button");
+    buttonRemove.setAttribute("type", "button");
+    buttonRemove.setAttribute("aria-label", "remove item");
+    buttonRemove.classList.add("action__remove");
+
+    const svgremove = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    svgremove.setAttribute("viewBox", "0 0 24 24");
+    svgremove.setAttribute("aria-hidden", "true");
+
+    const pathremove = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path"
+    );
+    pathremove.setAttribute(
+      "d",
+      "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+    );
+
+    svgremove.appendChild(pathremove);
+    buttonRemove.appendChild(svgremove);
+
+    const spanRemove = document.createElement("span");
+    spanRemove.classList.add("item__txt");
+    spanRemove.textContent = "Eliminar";
+
+    buttonRemove.appendChild(spanRemove);
+    divDropdown.appendChild(buttonRemove);
     buttonEdit.appendChild(spanEdit);
     divDropdown.appendChild(buttonEdit);
     divActions.appendChild(buttonToggle);
