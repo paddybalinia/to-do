@@ -1,33 +1,93 @@
 .item {
     background: white;
     box-shadow: 0 1px 7px rgb(0 0 0 / 15%);
-    padding: 10px 15px;
+    padding: 13px 15px 10px;
     border-radius: 4px;
     gap: 8px;
     display: flex;
     justify-content: space-between;
+    position: relative;
+
 
 
     &__dropdown {
-
         position: absolute;
-        right: 0;
+        right: -120px;
         top: 0;
-        visibility: hidden;
-        opacity: 0;
+        // visibility: hidden;
+        // opacity: 0;
+        padding: 10px 0 0;
+
+        background-color: #fff;
+        background-clip: padding-box;
+        border-radius: 4px;
+        box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.15) \9;
+        display: flex;
+        flex-direction: column;
+
+        svg {
+            height: auto;
+            width: 20px;
+        }
+
+        button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-align: left;
+            padding: 10px 17px;
+            gap: 10px;
+        }
+    }
+
+    &__icon {
+        position: relative;
+        width: 20px;
+
+        &__done,
+        &__check {
+            width: 20px;
+            height: 20px;
+            display: block;
+            border: 1px solid grey;
+            border-radius: 125px;
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+        }
+
+        &__done {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        &.checked .item__icon__check,
+        &:hover .item__icon__check {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
+    &__text {
+        flex: 1;
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 300;
     }
 
     &__toggle {
         display: flex;
-        flex-direction: row;
-        gap: 5px;
+        flex-direction: column;
+        gap: 3px;
 
         &__dots {
             border-radius: 125px;
             background: grey;
             display: inline-block;
-            height: 7px;
-            width: 7px;
+            height: 4px;
+            width: 4px;
         }
 
     }
@@ -36,6 +96,10 @@
 .list {
     max-width: 868px;
     margin: 30px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
 
     // display: flex;
     // justify-content: center;
