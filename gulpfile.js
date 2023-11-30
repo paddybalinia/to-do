@@ -73,7 +73,7 @@ function optimizeFonts() {
 }
 
 const jsFiles = [
-  "static/src/js/partials/LazyLoadImg.js",
+  "static/src/js/partials/ContactForm.js",
   // "static/src/js/partials/Header.js",
   // "static/src/js/partials/ScrollIntoView.js",
   // "static/src/js/partials/ViewportObserver.js",

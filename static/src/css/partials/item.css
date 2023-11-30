@@ -2,7 +2,7 @@
   background: white;
   -webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
           box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
-  padding: 10px 15px;
+  padding: 13px 15px 10px;
   border-radius: 4px;
   gap: 8px;
   display: -webkit-box;
@@ -11,15 +11,33 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  position: relative;
 }
 .item__dropdown {
   position: absolute;
-  right: 0;
+  right: -120px;
   top: 0;
-  visibility: hidden;
-  opacity: 0;
+  padding: 10px 0 0;
+  background-color: #fff;
+  background-clip: padding-box;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.15) \9 ;
+          box-shadow: 0 0 8px rgba(0, 0, 0, 0.15) \9 ;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
-.item__toggle {
+.item__dropdown svg {
+  height: auto;
+  width: 20px;
+}
+.item__dropdown button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -27,17 +45,71 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  gap: 5px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: left;
+  padding: 10px 17px;
+  gap: 10px;
+}
+.item__icon {
+  position: relative;
+  width: 20px;
+}
+.item__icon__done, .item__icon__check {
+  width: 20px;
+  height: 20px;
+  display: block;
+  border: 1px solid grey;
+  border-radius: 125px;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+}
+.item__icon__done {
+  opacity: 1;
+  visibility: visible;
+}
+.item__icon.checked .item__icon__check, .item__icon:hover .item__icon__check {
+  visibility: visible;
+  opacity: 1;
+}
+.item__text {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 300;
+}
+.item__toggle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 3px;
 }
 .item__toggle__dots {
   border-radius: 125px;
   background: grey;
   display: inline-block;
-  height: 7px;
-  width: 7px;
+  height: 4px;
+  width: 4px;
 }
 
 .list {
   max-width: 868px;
   margin: 30px auto 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 15px;
 }

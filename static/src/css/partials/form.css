@@ -20,6 +20,10 @@
   border: 0;
   width: 740px;
 }
+.form__icon {
+  width: 22px;
+  height: 22px;
+}
 .form__add {
   background: #2eb0fc;
   color: white;
