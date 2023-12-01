@@ -1,5 +1,5 @@
 (function (window, document) {
-  "use strcit";
+  "use strict";
 
   var FormContacto = document.querySelector(".form");
 
@@ -7,11 +7,74 @@
     return;
   }
 
+  // Constructor para toggleDropdown
+  function DropdownController() {
+    var dropdownActive = null;
+
+    this.toggleDropdown = function (button) {
+      var itemElement = button.closest(".item");
+      var dropdownElement = itemElement.querySelector(".item__dropdown");
+
+      var dropdownElementActive = document.querySelector(
+        ".item__dropdown.active"
+      );
+
+      if (dropdownElementActive && dropdownElementActive !== dropdownElement) {
+        // Oculta el dropdown activo si es diferente al actual
+        dropdownElementActive.classList.remove("active");
+      }
+
+      dropdownElement.classList.toggle("active");
+
+      // Actualiza el dropdown activo
+      dropdownActive = dropdownElement.classList.contains("active")
+        ? dropdownElement
+        : null;
+    };
+  }
+
   function Constructor() {
     FormContacto.addEventListener("submit", onSubmit, false);
   }
 
-  function CreateItem() {
+  function obtenerValorInput() {
+    // Obtener el valor del input por su id
+    var valorInput = FormContacto.querySelector(".form__text").value;
+
+    return valorInput;
+  }
+  function limpiarValorInput() {
+    // Obtener el valor del input
+    var valorInput = FormContacto.querySelector(".form__text");
+
+    valorInput.value = "";
+  }
+
+  function toggleDropdown(button) {
+    // Obtener el elemento padre (item) del botón
+    var itemElement = button.closest(".item");
+
+    // Obtener el elemento dropdown dentro del item
+    var dropdownElement = itemElement.querySelector(".item__dropdown");
+
+    // Toggle (agregar/eliminar) la clase 'active' en el elemento dropdown
+    dropdownElement.classList.toggle("active");
+
+    // Obtener todos los elementos item en la lista
+    var allItemElements = document.querySelectorAll(".list__li .item");
+
+    // Iterar sobre todos los elementos item
+    allItemElements.forEach(function (item) {
+      // Verificar si el elemento actual es diferente al elemento padre del botón
+      if (item !== itemElement) {
+        // Si es diferente, quitar la clase 'active' del dropdown en ese elemento
+        item.querySelector(".item__dropdown").classList.remove("active");
+      }
+    });
+  }
+
+  function CreateItem({ text = "default" }) {
+    var dropdownController = new DropdownController();
     // Crear la estructura de elementos utilizando JavaScript
     const listContainer = document.querySelector(".list");
 
@@ -32,12 +95,18 @@
     const spanCheck = document.createElement("span");
     spanCheck.classList.add("item__icon__check");
 
-    const svgCheck = document.createElement("svg");
+    const svgCheck = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
     svgCheck.setAttribute("viewBox", "0 0 24 24");
     svgCheck.setAttribute("aria-hidden", "true");
     svgCheck.id = "done-icon";
 
-    const pathCheck = document.createElement("path");
+    const pathCheck = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path"
+    );
     pathCheck.setAttribute(
       "d",
       "M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"
@@ -51,7 +120,7 @@
 
     const spanText = document.createElement("span");
     spanText.classList.add("item__text");
-    spanText.textContent = "Lorem ipsum dolor sit amet";
+    spanText.textContent = text;
 
     const divActions = document.createElement("div");
     divActions.classList.add("item__actions");
@@ -60,6 +129,10 @@
     buttonToggle.setAttribute("type", "button");
     buttonToggle.setAttribute("aria-label", "Toggle dropdown");
     buttonToggle.classList.add("item__toggle");
+    // Aquí, asignamos la función toggleDropdown al evento onclick
+    buttonToggle.onclick = function () {
+      dropdownController.toggleDropdown(buttonToggle);
+    };
 
     for (let i = 0; i < 3; i++) {
       const spanDot = document.createElement("span");
@@ -98,6 +171,75 @@
     spanEdit.classList.add("item__txt");
     spanEdit.textContent = "Editar";
 
+    const buttonRemove = document.createElement("button");
+    buttonRemove.setAttribute("type", "button");
+    buttonRemove.setAttribute("aria-label", "remove item");
+    buttonRemove.classList.add("action__remove");
+
+    const svgremove = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    svgremove.setAttribute("viewBox", "0 0 24 24");
+    svgremove.setAttribute("aria-hidden", "true");
+
+    const pathremove = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path"
+    );
+    pathremove.setAttribute(
+      "d",
+      "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+    );
+
+    svgremove.appendChild(pathremove);
+    buttonRemove.appendChild(svgremove);
+
+    const spanRemove = document.createElement("span");
+    spanRemove.classList.add("item__txt");
+    spanRemove.textContent = "Eliminar";
+    // Agregar función al botón de eliminación
+    buttonRemove.onclick = function () {
+      // Obtener el elemento padre (listItem) del botón
+      var listItem = buttonRemove.closest(".list__li");
+
+      // Eliminar el elemento del DOM
+      listItem.parentNode.removeChild(listItem);
+    };
+
+    const buttonFavorite = document.createElement("button");
+    buttonFavorite.setAttribute("type", "button");
+    buttonFavorite.setAttribute("aria-label", "Favorite item");
+    buttonFavorite.classList.add("action__favorite");
+
+    const svgFavorite = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    svgFavorite.setAttribute("viewBox", "0 0 24 24");
+    svgFavorite.setAttribute("aria-hidden", "true");
+
+    const pathFavorite = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path"
+    );
+    pathFavorite.setAttribute(
+      "d",
+      "M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"
+    );
+
+    svgFavorite.appendChild(pathFavorite);
+    buttonFavorite.appendChild(svgFavorite);
+
+    const spanFavorite = document.createElement("span");
+    spanFavorite.classList.add("item__txt");
+    spanFavorite.textContent = "Favorito";
+
+    buttonFavorite.appendChild(spanFavorite);
+    divDropdown.appendChild(buttonFavorite);
+
+    buttonRemove.appendChild(spanRemove);
+    divDropdown.appendChild(buttonRemove);
     buttonEdit.appendChild(spanEdit);
     divDropdown.appendChild(buttonEdit);
     divActions.appendChild(buttonToggle);
@@ -107,6 +249,8 @@
     itemContainer.appendChild(divActions);
     listItem.appendChild(itemContainer);
     listContainer.appendChild(listItem);
+
+    limpiarValorInput();
   }
 
   //Functions
@@ -117,50 +261,14 @@
   //Events
   function onSubmit() {
     event.preventDefault();
-    CreateItem();
-    // resetFormErrors();
-
-    // inputFirstName.value = inputFirstName.value.replaceAll("http://", "");
-    // inputLastName.value = inputLastName.value.replaceAll("http://", "");
-    // inputEmail.value = inputEmail.value.replaceAll("http://", "");
-    // inputMessage.value = inputMessage.value.replaceAll("http://", "");
-
-    // if (isEmpty(inputFirstName)) {
-    //   hasErrors = true;
-    //   addError(inputFirstName, "You must complete a Name.");
-    // } else {
-    //   removeError(inputFirstName);
-    // }
-
-    // if (isEmpty(inputLastName)) {
-    //   hasErrors = true;
-    //   addError(inputLastName, "You must complete a Last Name.");
-    // } else {
-    //   removeError(inputLastName);
-    // }
-
-    // if (isEmpty(inputEmail)) {
-    //   hasErrors = true;
-    //   addError(inputEmail, "You must complete an Email Address.");
-    // } else if (isInvalidEmail(inputEmail)) {
-    //   hasErrors = true;
-    //   addError(inputEmail, "You must complete an Email Address valid.");
-    // } else {
-    //   removeError(inputEmail);
-    // }
-
-    if (isEmpty(inputMessage)) {
-      hasErrors = true;
-      addError(inputMessage, "You must complete a Query.");
-    } else {
-      removeError(inputMessage);
+    const textTask = obtenerValorInput();
+    if (textTask == "") {
+      return;
     }
-
-    if (hasErrors == false) {
-    } else {
-      showGenericError();
-      // window.scrollTo(0, 0);
-    }
+    CreateItem({
+      text: textTask,
+    });
+    // Al crear un nuevo item, ocultamos el dropdown activo
   }
 
   window.Contacto = new Constructor();

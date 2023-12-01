@@ -17,6 +17,8 @@
   position: absolute;
   right: -120px;
   top: 0;
+  visibility: hidden;
+  opacity: 0;
   padding: 10px 0 0;
   background-color: #fff;
   background-clip: padding-box;
@@ -32,6 +34,10 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+.item__dropdown.active {
+  opacity: 1;
+  visibility: visible;
 }
 .item__dropdown svg {
   height: auto;
@@ -92,6 +98,10 @@
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 3px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 30px;
 }
 .item__toggle__dots {
   border-radius: 125px;
