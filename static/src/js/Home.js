@@ -50,6 +50,57 @@
     valorInput.value = "";
   }
 
+  /**
+   * Generates an edit form for a given button.
+   *
+   * @param {HTMLElement} button - The button element that triggers the edit form generation.
+   */
+  function generateEdit(button) {
+    const textElement =
+      button.parentNode.parentNode.parentNode.querySelector(".item__text");
+
+    if (textElement.querySelector(".form-edit__text") !== null) {
+      return;
+    }
+    const textoElement = textElement.textContent;
+    textElement.textContent = "";
+    const formElement = document.createElement("form");
+    formElement.className = "form-edit";
+
+    const inputElement = document.createElement("input");
+    inputElement.type = "text";
+    inputElement.name = "text";
+    inputElement.className = "form-edit__text";
+    inputElement.placeholder = textoElement;
+    inputElement.value = textoElement;
+
+    const buttonElement = document.createElement("button");
+    buttonElement.type = "submit";
+    buttonElement.className = "form-edit__save";
+    buttonElement.onclick = function () {
+      editText(buttonElement);
+    };
+
+    const spanElement = document.createElement("span");
+    spanElement.className = "form-edit__text";
+    spanElement.textContent = "Guardar";
+
+    // Construir la estructura
+    buttonElement.appendChild(spanElement);
+    formElement.appendChild(inputElement);
+    // inputElement.focus();
+    formElement.appendChild(buttonElement);
+    textElement.appendChild(formElement);
+    textElement.querySelector(".form-edit__text").focus();
+  }
+
+  function editText(button) {
+    const elemento = button.parentNode;
+    const textEdit =
+      elemento.parentNode.querySelector(".form-edit__text").value;
+    elemento.parentNode.textContent = textEdit;
+  }
+
   function toggleDropdown(button) {
     // Obtener el elemento padre (item) del botón
     var itemElement = button.closest(".item");
@@ -147,6 +198,9 @@
     buttonEdit.setAttribute("type", "button");
     buttonEdit.setAttribute("aria-label", "Edit item");
     buttonEdit.classList.add("action__edit");
+    buttonEdit.onclick = function () {
+      generateEdit(buttonEdit);
+    };
 
     const svgEdit = document.createElementNS(
       "http://www.w3.org/2000/svg",
