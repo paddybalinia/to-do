@@ -52,16 +52,70 @@
   }
 
   function onclickDoneList(button) {
-    // if (button.classList.contains("checked")) {
-    //   removeDoneList(button);
-    // } else {
-    //   moveToDoneList(button);
-    // }
-    // button.classList.toggle("checked");
     button.classList.contains("checked")
       ? removeDoneList(button)
       : moveToDoneList(button);
+
+    // Obtener el id del item padre
+    const id = button.closest(".list__li").getAttribute("data-id");
+
+    // Obtener el item del local storage por el id
+    const item = getItemById(id);
+
+    // Toggle la propiedad checked del item
+    item.checked = !item.checked;
+
+    // Guardar el item actualizado en el local storage
+    saveItem(item);
+
+    counterDoneList();
   }
+
+  function getItemById(id) {
+    // Obtener el objeto almacenado actualmente en el localStorage
+    var storedItemsJSON = localStorage.getItem("items");
+
+    // Convertir la cadena JSON a un array de objetos (si hay algo almacenado)
+    var storedItems = storedItemsJSON ? JSON.parse(storedItemsJSON) : [];
+
+    // Buscar el item por el id
+    return storedItems.find((item) => item.id === id) || {};
+  }
+
+  function saveItem(item) {
+    // Obtener el array de objetos almacenados actualmente en el localStorage
+    var storedItemsJSON = localStorage.getItem("items");
+
+    // Convertir la cadena JSON a un array de objetos (si hay algo almacenado)
+    var storedItems = storedItemsJSON ? JSON.parse(storedItemsJSON) : [];
+
+    // Actualizar o agregar el item en el array
+    const index = storedItems.findIndex(
+      (existingItem) => existingItem.id === item.id
+    );
+
+    if (index !== -1) {
+      // Si el item ya existe, actualizarlo
+      storedItems[index] = item;
+    } else {
+      // Si el item no existe, agregarlo
+      storedItems.push(item);
+    }
+
+    // Convertir el array a una cadena JSON
+    var updatedItemsJSON = JSON.stringify(storedItems);
+
+    // Guardar el array actualizado en el localStorage
+    localStorage.setItem("items", updatedItemsJSON);
+  }
+
+  function counterDoneList() {
+    var totalElement = document.querySelector(".box-done__total");
+    var totalList = document.querySelectorAll(".list--done .list__li");
+
+    totalElement.innerText = totalList.length;
+  }
+
   function moveToDoneList(button) {
     button.classList.add("checked");
     // Obtener el <li> padre del botón clickeado
@@ -408,6 +462,7 @@
 
     if (items.length > 0) {
       const listContainer = document.querySelector(".list");
+      const doneListContainer = document.querySelector(".list--done");
 
       items.forEach(function (item) {
         const listItem = document.createElement("li");
@@ -423,6 +478,8 @@
         button.setAttribute("type", "button");
         button.setAttribute("aria-label", "Done item");
         button.classList.add("item__icon");
+        item.checked ? button.classList.add("checked") : null;
+
         button.onclick = function () {
           onclickDoneList(button);
         };
@@ -558,6 +615,8 @@
 
           // Actualizar el Local Storage con los nuevos items
           localStorage.setItem("items", JSON.stringify(items));
+
+          counterDoneList();
         };
 
         const buttonFavorite = document.createElement("button");
@@ -601,8 +660,14 @@
         itemContainer.appendChild(spanText);
         itemContainer.appendChild(divActions);
         listItem.appendChild(itemContainer);
-        listContainer.appendChild(listItem);
+
+        if (item.checked) {
+          doneListContainer.appendChild(listItem);
+        } else {
+          listContainer.appendChild(listItem);
+        }
       });
+      counterDoneList();
     }
   }
 
@@ -617,11 +682,6 @@
     const items = JSON.parse(localStorage.getItem("items")) || [];
     items.push(itemData);
     localStorage.setItem("items", JSON.stringify(items));
-  }
-
-  //Functions
-  function isEmpty(input) {
-    return input.value == "";
   }
 
   //Events
