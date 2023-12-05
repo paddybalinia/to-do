@@ -264,6 +264,9 @@ input {
   gap: 20px;
   padding-top: 20px;
 }
+.header__svg {
+  width: 300px;
+}
 
 .form {
   background: white;
@@ -428,4 +431,29 @@ input {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 15px;
+}
+
+.form-edit {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 15px;
+}
+.form-edit__text {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border: 0;
+  border-bottom: 1px solid grey;
+  font: 300 16px/20px "Sharp Grotesk", sans-serif;
+  resize: none;
+}
+.form-edit__save {
+  background: #2eb0fc;
+  color: #fff;
+  font-weight: 700;
+  padding: 8px 14px 6px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  height: 32px;
 }

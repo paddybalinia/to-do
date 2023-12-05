@@ -1,3 +1,5 @@
+@import '../vars.scss';
+
 .item {
     background: white;
     box-shadow: 0 1px 7px rgb(0 0 0 / 15%);
@@ -107,8 +109,28 @@
     flex-direction: column;
     gap: 15px;
 
+}
 
-    // display: flex;
-    // justify-content: center;
-    // align-content: center;
+.form-edit {
+    display: flex;
+    gap: 15px;
+
+
+    &__text {
+        flex: 1;
+        border: 0;
+        border-bottom: 1px solid grey;
+        font: 300 16px/20px $font-primary;
+        resize: none;
+    }
+
+    &__save {
+        background: #2eb0fc;
+        color: #fff;
+        font-weight: 700;
+        padding: 8px 14px 6px;
+        text-transform: uppercase;
+        border-radius: 4px;
+        height: 32px;
+    }
 }

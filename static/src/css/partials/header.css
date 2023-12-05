@@ -12,3 +12,6 @@
   gap: 20px;
   padding-top: 20px;
 }
+.header__svg {
+  width: 300px;
+}
