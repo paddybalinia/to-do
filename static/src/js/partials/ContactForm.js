@@ -67,12 +67,14 @@
     const formElement = document.createElement("form");
     formElement.className = "form-edit";
 
-    const inputElement = document.createElement("input");
-    inputElement.type = "text";
-    inputElement.name = "text";
-    inputElement.className = "form-edit__text";
-    inputElement.placeholder = textoElement;
-    inputElement.value = textoElement;
+    const textareaElement = document.createElement("textarea");
+    textareaElement.name = "text";
+    textareaElement.className = "form-edit__text";
+    textareaElement.placeholder = textoElement;
+    textareaElement.value = textoElement;
+    textareaElement.onkeyup = function () {
+      textAreaAdjust(textareaElement);
+    };
 
     const buttonElement = document.createElement("button");
     buttonElement.type = "submit";
@@ -82,16 +84,17 @@
     };
 
     const spanElement = document.createElement("span");
-    spanElement.className = "form-edit__text";
+    spanElement.className = "form-edit__save__text";
     spanElement.textContent = "Guardar";
 
     // Construir la estructura
     buttonElement.appendChild(spanElement);
-    formElement.appendChild(inputElement);
-    // inputElement.focus();
+    formElement.appendChild(textareaElement);
+    // textareaElement.focus();
     formElement.appendChild(buttonElement);
     textElement.appendChild(formElement);
     textElement.querySelector(".form-edit__text").focus();
+    textAreaAdjust(textElement.querySelector(".form-edit__text"));
   }
 
   function editText(button) {
@@ -122,6 +125,10 @@
         item.querySelector(".item__dropdown").classList.remove("active");
       }
     });
+  }
+  function textAreaAdjust(element) {
+    element.style.height = "1px";
+    element.style.height = 25 + element.scrollHeight + "px";
   }
 
   function CreateItem({ text = "default" }) {

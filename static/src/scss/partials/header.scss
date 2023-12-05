@@ -6,6 +6,10 @@
     align-items: center;
     gap: 20px;
     padding-top: 20px;
+
+    &__svg {
+        width: 300px;
+    }
 }
 
 @media (min-width: 760px) {}
