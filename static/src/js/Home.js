@@ -204,10 +204,24 @@
   }
 
   function editText(button) {
+    // Obtener el id del item padre
+    const id =
+      button.parentNode.parentNode.parentNode.parentNode.getAttribute(
+        "data-id"
+      );
     const elemento = button.parentNode;
     const textEdit =
       elemento.parentNode.querySelector(".form-edit__text").value;
     elemento.parentNode.textContent = textEdit;
+
+    // Obtener el item del local storage por el id
+    const item = getItemById(id);
+
+    // Texto editado del item
+    item.title = textEdit;
+
+    // Guardar el item actualizado en el local storage
+    saveItem(item);
   }
 
   function toggleDropdown(button) {
