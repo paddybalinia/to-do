@@ -1,25 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do | Home</title>
-    <meta property="description" content="We're a solid but flexible team, built to fit with the needs of each project">
+    <title>To Do</title>
+    <meta name="description" content="To do es una aplicación que te ayuda a organizar tus tareas. 
+        Con To do, puedes crear listas de tareas, asignar favoritas y más.">
 
-    <meta name="title" content="To Do | Home">
-    <meta name="description" content="We're a solid but flexible team, built to fit with the needs of each project">
-    <meta name="keywords" content="Studio, Art, Design, Motion, 3D, Motion Branding, Creative Direction">
+    <meta property="description" content="To do es una aplicación que te ayuda a organizar tus tareas. 
+        Con To do, puedes crear listas de tareas, asignar favoritas y más.">
+
+    <meta name="title" content="To Do">
+    <meta name="description" content="To do es una aplicación que te ayuda a organizar tus tareas. 
+        Con To do, puedes crear listas de tareas, asignar favoritas y más.">
+    <meta name="keywords" content="to-do app, task management, productivity, organization, time management">
+
     <meta name="robots" content="index, follow">
     <link rel="icon" type="image/png" sizes="32x32" href="images/apps/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/apps/favicon-16x16.png">
 
 
-    <meta property="og:title" content="To Do | Home">
+    <meta property="og:title" content="To Do">
     <meta property="og:type" content="website">
-    <meta property="og:description"
-        content="We're a solid but flexible team, built to fit with the needs of each project">
+    <meta property="og:description" content="To do es una aplicación que te ayuda a organizar tus tareas. 
+        Con To do, puedes crear listas de tareas, asignar favoritas y más.">
     <meta property="og:url" content="https://todo">
 
     <link rel="mask-icon" href="images/apps/safari-pinned-tab.svg" color="#5bbad5">
@@ -34,21 +40,21 @@
     <meta property="og:image:width" content="400">
     <meta property="og:image:height" content="400">
     <meta property="og:site_name" content="To Do">
-    <meta property="og:description"
-        content="We're a solid but flexible team, built to fit with the needs of each project">
+    <meta property="og:description" content="To do es una aplicación que te ayuda a organizar tus tareas. 
+        Con To do, puedes crear listas de tareas, asignar favoritas y más.">
 
     <!-- twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="To Do | Home">
-    <meta property="twitter:description"
-        content="We're a solid but flexible team, built to fit with the needs of each project">
+    <meta name="twitter:title" content="To Do">
+    <meta property="twitter:description" content="To do es una aplicación que te ayuda a organizar tus tareas. 
+        Con To do, puedes crear listas de tareas, asignar favoritas y más.">
     <meta name="twitter:image" content="images/apps/twitter-summary-card.jpg">
     <meta name="twitter:site" content="https://twitter.com/todo">
     <meta name="twitter:creator" content="To Do">
     <meta name="twitter:url" content="todo">
     <meta name="twitter:domain" content="https://todo">
-    <meta name="twitter:description"
-        content="We're a solid but flexible team, built to fit with the needs of each project">
+    <meta name="twitter:description" content="To do es una aplicación que te ayuda a organizar tus tareas. 
+        Con To do, puedes crear listas de tareas, asignar favoritas y más.">
 
     <!-- Application -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -75,13 +81,13 @@
 
     <script>
         if ('serviceWorker' in navigator) {
-            // navigator.serviceWorker.register('service-worker.js')
-            //     .then(registration => {
-            //         console.log('Service Worker registrado con éxito:', registration);
-            //     })
-            //     .catch(error => {
-            //         console.log('Error al registrar el Service Worker:', error);
-            //     });
+            navigator.serviceWorker.register('service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registrado con éxito:', registration);
+                })
+                .catch(error => {
+                    console.log('Error al registrar el Service Worker:', error);
+                });
         }
     </script>
 
@@ -89,15 +95,18 @@
 
     <header class="header">
         <h1 class="header__title">
-            <svg class="header__svg" xmlns="http://www.w3.org/2000/svg" overflow="visible" viewBox="0 0 300 92">
-                <g class="overview-logo-color">
-                    <circle cx="133.8" cy="133.8" r="133.8" fill="#2cb0fc" transform="scale(.34308)" />
-                    <path fill="#fff"
-                        d="M22.306 28.202a1.116 1.116 0 01.141-1.574 1.116 1.116 0 011.573.142l3.965 4.726 6.714-8.662a1.116 1.116 0 111.765 1.366l-7.527 9.71a1.117 1.117 0 01-1.775.08l-4.855-5.79zm7.065 27.339c1.915 0 3.648.775 4.902 2.03a6.913 6.913 0 012.031 4.902 6.914 6.914 0 01-2.03 4.902c-1.254 1.254-2.988 2.031-4.902 2.031s-3.649-.775-4.902-2.03a6.913 6.913 0 01-2.031-4.902 6.906 6.906 0 012.03-4.903 6.913 6.913 0 014.902-2.03zm3.321 3.611a4.687 4.687 0 00-3.32-1.373 4.694 4.694 0 00-3.32 8.014 4.677 4.677 0 003.32 1.375 4.687 4.687 0 003.32-1.375 4.68 4.68 0 001.374-3.32 4.694 4.694 0 00-1.374-3.321zm-3.32-20.65c1.914 0 3.647.775 4.901 2.03a6.913 6.913 0 012.031 4.902 6.912 6.912 0 01-2.03 4.902c-1.254 1.253-2.988 2.03-4.902 2.03s-3.65-.775-4.903-2.03a6.913 6.913 0 01-2.03-4.902 6.906 6.906 0 012.03-4.902 6.913 6.913 0 014.902-2.03zm3.32 3.611a4.687 4.687 0 00-3.32-1.373 4.694 4.694 0 00-3.32 8.015 4.677 4.677 0 003.32 1.375 4.687 4.687 0 003.32-1.375 4.683 4.683 0 001.374-3.321 4.694 4.694 0 00-1.374-3.32zm9.66 21.479a1.12 1.12 0 010-2.241h26.33a1.12 1.12 0 010 2.24zm0-17.04a1.12 1.12 0 010-2.24h26.33a1.12 1.12 0 010 2.24zm0-17.04a1.12 1.12 0 010-2.24h26.33a1.12 1.12 0 010 2.24z" />
-                    <path fill="#3b3b3b"
-                        d="M117.722 28.032l-.804 5.723c-.033.301.009.502.126.602.117.1.326.15.627.15h9.388c.335 0 .502.152.502.453v.15l-4.016 28.213c-.034.134-.05.285-.05.452 0 .268.075.46.226.577.15.117.393.176.727.176h8.334c.535 0 .82-.301.853-.904l4.016-28.313c.067-.335.15-.552.251-.652.1-.1.301-.151.603-.151h9.136c.301 0 .519-.042.653-.126.134-.083.217-.242.25-.477l.854-5.823c.034-.301.009-.51-.075-.627-.084-.117-.31-.176-.678-.176h-29.87c-.367 0-.618.05-.752.15-.134.101-.235.302-.301.603zm42.42 35.115c2.342 1.255 5.136 1.883 8.383 1.883 3.48 0 6.618-.745 9.412-2.234 2.795-1.49 5.096-3.631 6.903-6.426 1.807-2.794 2.978-6.082 3.514-9.864.167-1.105.25-2.376.25-3.815 0-3.247-.618-6.066-1.857-8.46-1.238-2.392-3.02-4.233-5.346-5.521-2.326-1.289-5.079-1.933-8.258-1.933-3.48 0-6.626.761-9.438 2.284-2.81 1.523-5.128 3.698-6.952 6.526-1.824 2.828-3.004 6.15-3.54 9.965-.167 1.138-.25 2.426-.25 3.865 0 3.213.61 5.991 1.832 8.334 1.221 2.342 3.003 4.141 5.346 5.396zm14.633-8.057c-1.423 1.941-3.422 2.912-6 2.912-1.874 0-3.246-.519-4.116-1.556-.87-1.038-1.305-2.728-1.305-5.07 0-1.44.117-3.03.351-4.77.636-4.45 1.699-7.706 3.188-9.764 1.49-2.058 3.506-3.087 6.05-3.087 1.806 0 3.137.552 3.99 1.657.854 1.104 1.28 2.86 1.28 5.27 0 1.54-.117 3.197-.351 4.97-.636 4.351-1.665 7.497-3.087 9.438zm36.32-1.606l.602-4.167a1.143 1.143 0 00-.226-.828c-.184-.251-.393-.377-.627-.377l-12.852.05c-.3 0-.51.042-.627.126-.117.084-.193.293-.226.627l-.552 4.167c-.067.402 0 .736.2 1.004.201.268.52.402.954.402h11.898c.535 0 .895-.059 1.08-.176.183-.117.309-.393.376-.828zm9.212 10.592c.217.301.56.452 1.029.452h12.148c4.552 0 8.526-.895 11.923-2.686 3.397-1.79 6.016-4.325 7.856-7.605 1.84-3.28 2.761-7.112 2.761-11.496 0-3.08-.694-5.782-2.083-8.108-1.389-2.326-3.456-4.133-6.2-5.421-2.744-1.289-6.09-1.933-10.04-1.933h-11.596c-.435 0-.72.05-.854.15-.134.101-.234.335-.3.703l-4.87 34.74c-.067.501.008.903.226 1.204zm14.332-6.626h-2.811c-.436 0-.653-.218-.653-.653v-.251l2.912-21.235c.067-.335.175-.577.326-.728.15-.15.376-.226.678-.226h2.961c2.377 0 4.209.653 5.497 1.958 1.289 1.305 1.933 3.263 1.933 5.874 0 4.585-.903 8.274-2.71 11.069-1.808 2.794-4.519 4.192-8.133 4.192zm36.897 5.697c2.343 1.255 5.137 1.883 8.384 1.883 3.48 0 6.618-.745 9.412-2.234 2.795-1.49 5.096-3.631 6.903-6.426 1.807-2.794 2.979-6.082 3.514-9.864.167-1.105.251-2.376.251-3.815 0-3.247-.62-6.066-1.857-8.46-1.239-2.392-3.02-4.233-5.347-5.521-2.326-1.289-5.078-1.933-8.258-1.933-3.48 0-6.626.761-9.438 2.284-2.81 1.523-5.128 3.698-6.952 6.526-1.824 2.828-3.004 6.15-3.54 9.965-.167 1.138-.25 2.426-.25 3.865 0 3.213.61 5.991 1.832 8.334 1.221 2.342 3.004 4.141 5.346 5.396zm14.634-8.057c-1.423 1.941-3.422 2.912-6 2.912-1.873 0-3.246-.519-4.116-1.556-.87-1.038-1.305-2.728-1.305-5.07 0-1.44.117-3.03.351-4.77.636-4.45 1.699-7.706 3.188-9.764 1.49-2.058 3.506-3.087 6.05-3.087 1.807 0 3.137.552 3.99 1.657.854 1.104 1.28 2.86 1.28 5.27 0 1.54-.117 3.197-.35 4.97-.637 4.351-1.666 7.497-3.088 9.438z" />
+            <svg class="header__svg" width="396" height="111.65533856979722" viewBox="0 0 250 70.48948142032653"
+                class="looka-1j8o68f">
+                <defs id="SvgjsDefs2718"></defs>
+                <g id="SvgjsG2719" featurekey="nameFeature-0"
+                    transform="matrix(2.5283170272522453,0,0,2.5283170272522453,-2.022651692848986,-31.85679068547267)"
+                    fill="#000000">
+                    <path
+                        d="M9.32 19.48 l5.04 0 l0 4.96 l-5.04 0 l0 8.24 c0 1.84 0.84 2.56 2.72 2.56 l2.32 0 l0 4.76 l-2.72 0 c-5.44 0 -7.88 -2.44 -7.88 -7.04 l0 -8.52 l-2.96 0 l0 -4.96 l2.96 0 l0 -5.28 l5.56 0 l0 5.28 z M27.08 19.08 c6.32 0 11.04 4.72 11.04 10.72 c0 5.96 -4.72 10.68 -11.04 10.68 s-11 -4.68 -11 -10.68 c0 -5.96 4.72 -10.72 11 -10.72 z M27.08 24.119999999999997 c-3.12 0 -5.52 2.4 -5.52 5.68 s2.28 5.72 5.4 5.72 s5.64 -2.44 5.64 -5.72 s-2.4 -5.68 -5.52 -5.68 z M51.839999999999996 31.28 l-11.8 0 l0 -5.24 l11.8 0 l0 5.24 z M64.67999999999999 35.36 c3.2 0 5.6 -2.44 5.6 -5.52 c0 -3.04 -2.48 -5.52 -5.6 -5.52 c-3.04 0 -5.4 2.48 -5.4 5.52 c0 3.08 2.36 5.52 5.4 5.52 z M70.2 40 l0 -1.52 c-1.44 1.12 -3.68 1.8 -6 1.8 c-5.6 0 -10.36 -4.52 -10.36 -10.44 s4.76 -10.56 10.36 -10.56 c2.32 0 4.56 0.72 6 1.84 l0 -8.52 l5.56 0 l0 27.4 l-5.56 0 z M88.64 19.08 c6.32 0 11.04 4.72 11.04 10.72 c0 5.96 -4.72 10.68 -11.04 10.68 s-11 -4.68 -11 -10.68 c0 -5.96 4.72 -10.72 11 -10.72 z M88.64 24.119999999999997 c-3.12 0 -5.52 2.4 -5.52 5.68 s2.28 5.72 5.4 5.72 s5.64 -2.44 5.64 -5.72 s-2.4 -5.68 -5.52 -5.68 z">
+                    </path>
                 </g>
             </svg>
+
         </h1>
         <form class="form">
             <svg class="form__icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
@@ -173,17 +182,6 @@
         </div>
     </section>
 </body>
-<script>
-
-</script>
-<!-- 
-<form class="form-edit">
-    <input type="text" name="text" class="form-edit__text" placeholder="Lorem impsim">
-    <button type="submit" class="form-edit__save">
-        <span class="form-edit__text">Guardar</span>
-    </button>
-</form> -->
-
 
 <script src="js/Home.js"></script>
 
