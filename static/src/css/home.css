@@ -420,6 +420,19 @@ input {
   width: 4px;
 }
 
+.action__favorite {
+  width: 20px;
+}
+
+.item__actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
 .box-done {
   max-width: 868px;
   margin: 30px auto 0;

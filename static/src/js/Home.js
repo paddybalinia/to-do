@@ -255,7 +255,13 @@
     return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
   }
 
-  function CreateItem({ text = "default", checked = false }) {
+  function CreateItem({
+    text = "default",
+    checked = false,
+    favorite = false,
+    itemDate = "defalut",
+    itemId = "default",
+  }) {
     var dropdownController = new DropdownController();
     // Crear la estructura de elementos utilizando JavaScript
     const listContainer = document.querySelector(".list");
@@ -263,8 +269,8 @@
     const listItem = document.createElement("li");
     listItem.classList.add("list__li");
 
-    const itemDate = Date.now();
-    const itemId = generateId();
+    itemDate = Date.now();
+    itemId = generateId();
 
     listItem.setAttribute("data-date", itemDate);
     listItem.setAttribute("data-id", itemId);
@@ -437,17 +443,18 @@
     svgFavorite.appendChild(pathFavorite);
     buttonFavorite.appendChild(svgFavorite);
 
-    const spanFavorite = document.createElement("span");
-    spanFavorite.classList.add("item__txt");
-    spanFavorite.textContent = "Favorito";
+    // const spanFavorite = document.createElement("span");
+    // spanFavorite.classList.add("item__txt");
+    // spanFavorite.textContent = "Favorito";
 
-    buttonFavorite.appendChild(spanFavorite);
-    divDropdown.appendChild(buttonFavorite);
+    // divActions.appendChild(buttonFavorite);
+    // divDropdown.appendChild(buttonFavorite);
 
     buttonRemove.appendChild(spanRemove);
     divDropdown.appendChild(buttonRemove);
     buttonEdit.appendChild(spanEdit);
     divDropdown.appendChild(buttonEdit);
+    divActions.appendChild(buttonFavorite);
     divActions.appendChild(buttonToggle);
     divActions.appendChild(divDropdown);
     itemContainer.appendChild(button);
@@ -464,6 +471,7 @@
       id: itemId,
       date: itemDate,
       checked: checked,
+      favorite: favorite,
     };
     const items = JSON.parse(localStorage.getItem("items")) || [];
     items.push(itemData);
@@ -657,17 +665,11 @@
         svgFavorite.appendChild(pathFavorite);
         buttonFavorite.appendChild(svgFavorite);
 
-        const spanFavorite = document.createElement("span");
-        spanFavorite.classList.add("item__txt");
-        spanFavorite.textContent = "Favorito";
-
-        buttonFavorite.appendChild(spanFavorite);
-        divDropdown.appendChild(buttonFavorite);
-
         buttonRemove.appendChild(spanRemove);
         divDropdown.appendChild(buttonRemove);
         buttonEdit.appendChild(spanEdit);
         divDropdown.appendChild(buttonEdit);
+        divActions.appendChild(buttonFavorite);
         divActions.appendChild(buttonToggle);
         divActions.appendChild(divDropdown);
         itemContainer.appendChild(button);
@@ -686,17 +688,17 @@
   }
 
   // Llamar a la función de almacenamiento local fuera de la función CreateItem
-  function saveToLocalStorage(text, checked) {
-    const itemData = {
-      title: text,
-      id: generateId(),
-      date: Date.now(),
-      checked: checked,
-    };
-    const items = JSON.parse(localStorage.getItem("items")) || [];
-    items.push(itemData);
-    localStorage.setItem("items", JSON.stringify(items));
-  }
+  // function saveToLocalStorage(text, checked) {
+  //   const itemData = {
+  //     title: text,
+  //     id: generateId(),
+  //     date: Date.now(),
+  //     checked: checked,
+  //   };
+  //   const items = JSON.parse(localStorage.getItem("items")) || [];
+  //   items.push(itemData);
+  //   localStorage.setItem("items", JSON.stringify(items));
+  // }
 
   //Events
   function onSubmit() {

@@ -102,6 +102,15 @@
     }
 }
 
+.action__favorite {
+    width: 20px;
+}
+
+.item__actions {
+    display: flex;
+    align-items: flex-start;
+}
+
 .box-done {
     max-width: 868px;
     margin: 30px auto 0;
