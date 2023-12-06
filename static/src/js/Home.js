@@ -71,6 +71,25 @@
     counterDoneList();
   }
 
+  function onclickFavorite(button) {
+    // Obtener el id del item padre
+    const itemLi = button.closest(".list__li");
+    const id = itemLi.getAttribute("data-id");
+
+    itemLi.classList.toggle("favorited");
+
+    // Obtener el item del local storage por el id
+    const item = getItemById(id);
+
+    // Toggle la propiedad checked del item
+    item.favorite = !item.favorite;
+
+    // Guardar el item actualizado en el local storage
+    saveItem(item);
+
+    counterDoneList();
+  }
+
   function getItemById(id) {
     // Obtener el objeto almacenado actualmente en el localStorage
     var storedItemsJSON = localStorage.getItem("items");
@@ -424,6 +443,10 @@
     buttonFavorite.setAttribute("aria-label", "Favorite item");
     buttonFavorite.classList.add("action__favorite");
 
+    buttonFavorite.onclick = function () {
+      onclickFavorite(button);
+    };
+
     const svgFavorite = document.createElementNS(
       "http://www.w3.org/2000/svg",
       "svg"
@@ -442,13 +465,6 @@
 
     svgFavorite.appendChild(pathFavorite);
     buttonFavorite.appendChild(svgFavorite);
-
-    // const spanFavorite = document.createElement("span");
-    // spanFavorite.classList.add("item__txt");
-    // spanFavorite.textContent = "Favorito";
-
-    // divActions.appendChild(buttonFavorite);
-    // divDropdown.appendChild(buttonFavorite);
 
     buttonRemove.appendChild(spanRemove);
     divDropdown.appendChild(buttonRemove);
@@ -489,6 +505,7 @@
       items.forEach(function (item) {
         const listItem = document.createElement("li");
         listItem.classList.add("list__li");
+        item.favorite ? listItem.classList.add("favorited") : null;
 
         listItem.setAttribute("data-date", item.date);
         listItem.setAttribute("data-id", item.id);
@@ -645,6 +662,9 @@
         buttonFavorite.setAttribute("type", "button");
         buttonFavorite.setAttribute("aria-label", "Favorite item");
         buttonFavorite.classList.add("action__favorite");
+        buttonFavorite.onclick = function () {
+          onclickFavorite(button);
+        };
 
         const svgFavorite = document.createElementNS(
           "http://www.w3.org/2000/svg",

@@ -452,6 +452,10 @@ input {
   gap: 15px;
 }
 
+.list__li.favorited .action__favorite {
+  fill: #ff9800;
+}
+
 .form-edit {
   display: -webkit-box;
   display: -ms-flexbox;
