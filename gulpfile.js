@@ -100,7 +100,7 @@ function watchFiles() {
   gulp.watch(jsFiles, combineScripts);
   gulp.watch(paths.scripts.src, minifyScripts);
   gulp.watch(paths.fonts.src, optimizeFonts);
-  gulp.watch(paths.html.src, minifyHTML);
+  // gulp.watch(paths.html.src, minifyHTML);
 }
 
 const buildTasks = gulp.parallel(
@@ -109,8 +109,8 @@ const buildTasks = gulp.parallel(
   minifyScripts,
   optimizeImages,
   combineScripts,
-  optimizeFonts,
-  minifyHTML
+  optimizeFonts
+  // minifyHTML
 );
 
 exports.build = buildTasks;
