@@ -112,18 +112,13 @@
   width: 4px;
 }
 
-.action__remove,
-.action__edit,
-.action__favorite {
+.action__remove, .action__edit, .action__favorite {
   width: 40px;
 }
-.action__remove svg,
-.action__edit svg,
-.action__favorite svg {
+.action__remove svg, .action__edit svg, .action__favorite svg {
   width: 20px;
 }
-
-.item__actions {
+.action__actions {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
