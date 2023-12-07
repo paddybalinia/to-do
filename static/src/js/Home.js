@@ -73,7 +73,7 @@
 
   function onclickFavorite(button) {
     // Obtener el id del item padre
-    const itemLi = button.closest(".list__li");
+    const itemLi = button.parentNode.parentNode;
     const id = itemLi.getAttribute("data-id");
 
     itemLi.classList.toggle("favorited");
@@ -309,192 +309,18 @@
     text = "default",
     checked = false,
     favorite = false,
-    itemDate = "defalut",
-    itemId = "default",
+    itemDate = Date.now(),
+    itemId = generateId(),
   }) {
     var dropdownController = new DropdownController();
-    // Crear la estructura de elementos utilizando JavaScript
-    const listContainer = document.querySelector(".list");
 
-    const listItem = document.createElement("li");
-    listItem.classList.add("list__li");
-
-    itemDate = Date.now();
-    itemId = generateId();
-
-    listItem.setAttribute("data-date", itemDate);
-    listItem.setAttribute("data-id", itemId);
-
-    const itemContainer = document.createElement("div");
-    itemContainer.classList.add("item");
-
-    const button = document.createElement("button");
-    button.setAttribute("type", "button");
-    button.setAttribute("aria-label", "Done item");
-    button.classList.add("item__icon");
-    button.onclick = function () {
-      onclickDoneList(button);
-    };
-
-    const spanDone = document.createElement("span");
-    spanDone.classList.add("item__icon__done");
-
-    const spanCheck = document.createElement("span");
-    spanCheck.classList.add("item__icon__check");
-
-    const svgCheck = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "svg"
-    );
-    svgCheck.setAttribute("viewBox", "0 0 24 24");
-    svgCheck.setAttribute("aria-hidden", "true");
-    svgCheck.id = "done-icon";
-
-    const pathCheck = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "path"
-    );
-    pathCheck.setAttribute(
-      "d",
-      "M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"
-    );
-
-    svgCheck.appendChild(pathCheck);
-    spanCheck.appendChild(svgCheck);
-
-    button.appendChild(spanDone);
-    button.appendChild(spanCheck);
-
-    const spanText = document.createElement("span");
-    spanText.classList.add("item__text");
-    spanText.textContent = text;
-
-    const divActions = document.createElement("div");
-    divActions.classList.add("item__actions");
-
-    const buttonToggle = document.createElement("button");
-    buttonToggle.setAttribute("type", "button");
-    buttonToggle.setAttribute("aria-label", "Toggle dropdown");
-    buttonToggle.classList.add("item__toggle");
-    // Aquí, asignamos la función toggleDropdown al evento onclick
-    buttonToggle.onclick = function () {
-      dropdownController.toggleDropdown(buttonToggle);
-    };
-
-    for (let i = 0; i < 3; i++) {
-      const spanDot = document.createElement("span");
-      spanDot.classList.add("item__toggle__dots");
-      buttonToggle.appendChild(spanDot);
-    }
-
-    const divDropdown = document.createElement("div");
-    divDropdown.classList.add("item__dropdown");
-
-    const buttonEdit = document.createElement("button");
-    buttonEdit.setAttribute("type", "button");
-    buttonEdit.setAttribute("aria-label", "Edit item");
-    buttonEdit.classList.add("action__edit");
-    buttonEdit.onclick = function () {
-      generateEdit(buttonEdit);
-    };
-
-    const svgEdit = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "svg"
-    );
-    svgEdit.setAttribute("viewBox", "0 0 24 24");
-    svgEdit.setAttribute("aria-hidden", "true");
-
-    const pathEdit = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "path"
-    );
-    pathEdit.setAttribute(
-      "d",
-      "M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-    );
-
-    svgEdit.appendChild(pathEdit);
-    buttonEdit.appendChild(svgEdit);
-
-    const spanEdit = document.createElement("span");
-    spanEdit.classList.add("item__txt");
-    // spanEdit.textContent = "Editar";
-
-    const buttonRemove = document.createElement("button");
-    buttonRemove.setAttribute("type", "button");
-    buttonRemove.setAttribute("aria-label", "remove item");
-    buttonRemove.classList.add("action__remove");
-
-    const svgremove = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "svg"
-    );
-    svgremove.setAttribute("viewBox", "0 0 24 24");
-    svgremove.setAttribute("aria-hidden", "true");
-
-    const pathremove = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "path"
-    );
-    pathremove.setAttribute(
-      "d",
-      "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
-    );
-
-    svgremove.appendChild(pathremove);
-    buttonRemove.appendChild(svgremove);
-
-    const spanRemove = document.createElement("span");
-    spanRemove.classList.add("item__txt");
-    // spanRemove.textContent = "Eliminar";
-    // Agregar función al botón de eliminación
-    buttonRemove.onclick = function () {
-      removeItem(buttonRemove);
-    };
-
-    const buttonFavorite = document.createElement("button");
-    buttonFavorite.setAttribute("type", "button");
-    buttonFavorite.setAttribute("aria-label", "Favorite item");
-    buttonFavorite.classList.add("action__favorite");
-
-    buttonFavorite.onclick = function () {
-      onclickFavorite(button);
-    };
-
-    const svgFavorite = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "svg"
-    );
-    svgFavorite.setAttribute("viewBox", "0 0 24 24");
-    svgFavorite.setAttribute("aria-hidden", "true");
-
-    const pathFavorite = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "path"
-    );
-    pathFavorite.setAttribute(
-      "d",
-      "M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"
-    );
-
-    svgFavorite.appendChild(pathFavorite);
-    buttonFavorite.appendChild(svgFavorite);
-
-    buttonRemove.appendChild(spanRemove);
-    divDropdown.appendChild(buttonRemove);
-    buttonEdit.appendChild(spanEdit);
-    divDropdown.appendChild(buttonEdit);
-    divActions.appendChild(buttonFavorite);
-    divActions.appendChild(buttonEdit);
-    divActions.appendChild(buttonRemove);
-    divActions.appendChild(buttonToggle);
-    divActions.appendChild(divDropdown);
-    itemContainer.appendChild(button);
-    itemContainer.appendChild(spanText);
-    itemContainer.appendChild(divActions);
-    listItem.appendChild(itemContainer);
-    listContainer.insertBefore(listItem, listContainer.firstChild);
+    itemCreatorHtml({
+      id: itemId,
+      date: itemDate,
+      title: text,
+      favorite: favorite,
+      checked: checked,
+    });
 
     //orderList();
     limpiarValorInput();
@@ -533,192 +359,206 @@
       const doneListContainer = document.querySelector(".list--done");
 
       items.forEach(function (item) {
-        const listItem = document.createElement("li");
-        listItem.classList.add("list__li");
-        item.favorite ? listItem.classList.add("favorited") : null;
-
-        listItem.setAttribute("data-date", item.date);
-        listItem.setAttribute("data-id", item.id);
-
-        const itemContainer = document.createElement("div");
-        itemContainer.classList.add("item");
-
-        const button = document.createElement("button");
-        button.setAttribute("type", "button");
-        button.setAttribute("aria-label", "Done item");
-        button.classList.add("item__icon");
-        item.checked ? button.classList.add("checked") : null;
-
-        button.onclick = function () {
-          onclickDoneList(button);
-        };
-
-        const spanDone = document.createElement("span");
-        spanDone.classList.add("item__icon__done");
-
-        const spanCheck = document.createElement("span");
-        spanCheck.classList.add("item__icon__check");
-
-        const svgCheck = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "svg"
-        );
-        svgCheck.setAttribute("viewBox", "0 0 24 24");
-        svgCheck.setAttribute("aria-hidden", "true");
-        svgCheck.id = "done-icon";
-
-        const pathCheck = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "path"
-        );
-        pathCheck.setAttribute(
-          "d",
-          "M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"
-        );
-
-        svgCheck.appendChild(pathCheck);
-        spanCheck.appendChild(svgCheck);
-
-        button.appendChild(spanDone);
-        button.appendChild(spanCheck);
-
-        const spanText = document.createElement("span");
-        spanText.classList.add("item__text");
-        spanText.textContent = item.title;
-
-        const divActions = document.createElement("div");
-        divActions.classList.add("item__actions");
-
-        const buttonToggle = document.createElement("button");
-        buttonToggle.setAttribute("type", "button");
-        buttonToggle.setAttribute("aria-label", "Toggle dropdown");
-        buttonToggle.classList.add("item__toggle");
-        // Aquí, asignamos la función toggleDropdown al evento onclick
-        buttonToggle.onclick = function () {
-          dropdownController.toggleDropdown(buttonToggle);
-        };
-
-        for (let i = 0; i < 3; i++) {
-          const spanDot = document.createElement("span");
-          spanDot.classList.add("item__toggle__dots");
-          buttonToggle.appendChild(spanDot);
-        }
-
-        const divDropdown = document.createElement("div");
-        divDropdown.classList.add("item__dropdown");
-
-        const buttonEdit = document.createElement("button");
-        buttonEdit.setAttribute("type", "button");
-        buttonEdit.setAttribute("aria-label", "Edit item");
-        buttonEdit.classList.add("action__edit");
-        buttonEdit.onclick = function () {
-          generateEdit(buttonEdit);
-        };
-
-        const svgEdit = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "svg"
-        );
-        svgEdit.setAttribute("viewBox", "0 0 24 24");
-        svgEdit.setAttribute("aria-hidden", "true");
-
-        const pathEdit = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "path"
-        );
-        pathEdit.setAttribute(
-          "d",
-          "M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-        );
-
-        svgEdit.appendChild(pathEdit);
-        buttonEdit.appendChild(svgEdit);
-
-        const spanEdit = document.createElement("span");
-        spanEdit.classList.add("item__txt");
-        // spanEdit.textContent = "Editar";
-
-        const buttonRemove = document.createElement("button");
-        buttonRemove.setAttribute("type", "button");
-        buttonRemove.setAttribute("aria-label", "remove item");
-        buttonRemove.classList.add("action__remove");
-
-        const svgremove = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "svg"
-        );
-        svgremove.setAttribute("viewBox", "0 0 24 24");
-        svgremove.setAttribute("aria-hidden", "true");
-
-        const pathremove = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "path"
-        );
-        pathremove.setAttribute(
-          "d",
-          "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
-        );
-
-        svgremove.appendChild(pathremove);
-        buttonRemove.appendChild(svgremove);
-
-        const spanRemove = document.createElement("span");
-        spanRemove.classList.add("item__txt");
-        // spanRemove.textContent = "Eliminar";
-        // Agregar función al botón de eliminación
-        buttonRemove.onclick = function () {
-          removeItem(buttonRemove);
-        };
-
-        const buttonFavorite = document.createElement("button");
-        buttonFavorite.setAttribute("type", "button");
-        buttonFavorite.setAttribute("aria-label", "Favorite item");
-        buttonFavorite.classList.add("action__favorite");
-        buttonFavorite.onclick = function () {
-          onclickFavorite(button);
-        };
-
-        const svgFavorite = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "svg"
-        );
-        svgFavorite.setAttribute("viewBox", "0 0 24 24");
-        svgFavorite.setAttribute("aria-hidden", "true");
-
-        const pathFavorite = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "path"
-        );
-        pathFavorite.setAttribute(
-          "d",
-          "M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"
-        );
-
-        svgFavorite.appendChild(pathFavorite);
-        buttonFavorite.appendChild(svgFavorite);
-
-        buttonRemove.appendChild(spanRemove);
-        divDropdown.appendChild(buttonRemove);
-        buttonEdit.appendChild(spanEdit);
-        divDropdown.appendChild(buttonEdit);
-        divActions.appendChild(buttonFavorite);
-        divActions.appendChild(buttonEdit);
-        divActions.appendChild(buttonRemove);
-        divActions.appendChild(buttonRemove);
-        divActions.appendChild(buttonToggle);
-        divActions.appendChild(divDropdown);
-        itemContainer.appendChild(button);
-        itemContainer.appendChild(spanText);
-        itemContainer.appendChild(divActions);
-        listItem.appendChild(itemContainer);
-
-        if (item.checked) {
-          doneListContainer.appendChild(listItem);
-        } else {
-          listContainer.appendChild(listItem);
-        }
+        itemCreatorHtml({
+          id: item.id,
+          date: item.date,
+          title: item.title,
+          favorite: item.favorite,
+          checked: item.checked,
+        });
       });
       counterDoneList();
+    }
+  }
+
+  function itemCreatorHtml({
+    title = "",
+    date = "",
+    id = "",
+    favorite = false,
+    checked = false,
+  }) {
+    const listContainer = document.querySelector(".list");
+    const doneListContainer = document.querySelector(".list--done");
+
+    const itemContainer = document.createElement("div");
+    itemContainer.classList.add("item");
+
+    const listItem = document.createElement("li");
+    listItem.classList.add("list__li");
+
+    listItem.setAttribute("data-date", date);
+    listItem.setAttribute("data-id", id);
+
+    favorite ? listItem.classList.add("favorited") : null;
+
+    const button = document.createElement("button");
+    button.setAttribute("type", "button");
+    button.setAttribute("aria-label", "Done item");
+    button.classList.add("item__icon");
+    checked ? button.classList.add("checked") : null;
+
+    button.onclick = function () {
+      onclickDoneList(button);
+    };
+    const spanDone = document.createElement("span");
+    spanDone.classList.add("item__icon__done");
+
+    const spanCheck = document.createElement("span");
+    spanCheck.classList.add("item__icon__check");
+
+    const svgCheck = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    svgCheck.setAttribute("viewBox", "0 0 24 24");
+    svgCheck.setAttribute("aria-hidden", "true");
+    svgCheck.id = "done-icon";
+
+    const pathCheck = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path"
+    );
+    pathCheck.setAttribute(
+      "d",
+      "M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"
+    );
+
+    svgCheck.appendChild(pathCheck);
+    spanCheck.appendChild(svgCheck);
+
+    button.appendChild(spanDone);
+    button.appendChild(spanCheck);
+
+    const spanText = document.createElement("span");
+    spanText.classList.add("item__text");
+    spanText.textContent = title;
+
+    const divActions = document.createElement("div");
+    divActions.classList.add("item__actions");
+
+    const buttonToggle = document.createElement("button");
+    buttonToggle.setAttribute("type", "button");
+    buttonToggle.setAttribute("aria-label", "Toggle dropdown");
+    buttonToggle.classList.add("item__toggle");
+    // Aquí, asignamos la función toggleDropdown al evento onclick
+    buttonToggle.onclick = function () {
+      dropdownController.toggleDropdown(buttonToggle);
+    };
+
+    for (let i = 0; i < 3; i++) {
+      const spanDot = document.createElement("span");
+      spanDot.classList.add("item__toggle__dots");
+      buttonToggle.appendChild(spanDot);
+    }
+    const divDropdown = document.createElement("div");
+    divDropdown.classList.add("item__dropdown");
+
+    const buttonEdit = document.createElement("button");
+    buttonEdit.setAttribute("type", "button");
+    buttonEdit.setAttribute("aria-label", "Edit item");
+    buttonEdit.classList.add("action__edit");
+    buttonEdit.onclick = function () {
+      generateEdit(buttonEdit);
+    };
+
+    const svgEdit = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    svgEdit.setAttribute("viewBox", "0 0 24 24");
+    svgEdit.setAttribute("aria-hidden", "true");
+
+    const pathEdit = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path"
+    );
+    pathEdit.setAttribute(
+      "d",
+      "M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+    );
+
+    svgEdit.appendChild(pathEdit);
+    buttonEdit.appendChild(svgEdit);
+
+    const spanEdit = document.createElement("span");
+    spanEdit.classList.add("item__txt");
+    const buttonRemove = document.createElement("button");
+    buttonRemove.setAttribute("type", "button");
+    buttonRemove.setAttribute("aria-label", "remove item");
+    buttonRemove.classList.add("action__remove");
+
+    const svgremove = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    svgremove.setAttribute("viewBox", "0 0 24 24");
+    svgremove.setAttribute("aria-hidden", "true");
+
+    const pathremove = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path"
+    );
+    pathremove.setAttribute(
+      "d",
+      "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+    );
+
+    svgremove.appendChild(pathremove);
+    buttonRemove.appendChild(svgremove);
+
+    const spanRemove = document.createElement("span");
+    spanRemove.classList.add("item__txt");
+
+    buttonRemove.onclick = function () {
+      removeItem(buttonRemove);
+    };
+
+    const buttonFavorite = document.createElement("button");
+    buttonFavorite.setAttribute("type", "button");
+    buttonFavorite.setAttribute("aria-label", "Favorite item");
+    buttonFavorite.classList.add("action__favorite");
+    buttonFavorite.onclick = function () {
+      onclickFavorite(button);
+    };
+
+    const svgFavorite = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    svgFavorite.setAttribute("viewBox", "0 0 24 24");
+    svgFavorite.setAttribute("aria-hidden", "true");
+
+    const pathFavorite = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path"
+    );
+    pathFavorite.setAttribute(
+      "d",
+      "M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"
+    );
+
+    svgFavorite.appendChild(pathFavorite);
+    buttonFavorite.appendChild(svgFavorite);
+
+    buttonRemove.appendChild(spanRemove);
+    divDropdown.appendChild(buttonRemove);
+    buttonEdit.appendChild(spanEdit);
+    divDropdown.appendChild(buttonEdit);
+    divActions.appendChild(buttonFavorite);
+    divActions.appendChild(buttonEdit);
+    divActions.appendChild(buttonRemove);
+    divActions.appendChild(buttonToggle);
+    divActions.appendChild(divDropdown);
+    itemContainer.appendChild(button);
+    itemContainer.appendChild(spanText);
+    itemContainer.appendChild(divActions);
+    listItem.appendChild(itemContainer);
+
+    if (checked) {
+      doneListContainer.appendChild(listItem);
+    } else {
+      listContainer.appendChild(listItem);
     }
   }
 
