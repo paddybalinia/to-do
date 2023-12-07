@@ -71,6 +71,24 @@
     counterDoneList();
   }
 
+  function onclickFavorite(button) {
+    // Obtener el id del item padre
+    const itemLi = button.closest(".list__li");
+    const id = itemLi.getAttribute("data-id");
+
+    itemLi.classList.toggle("favorited");
+
+    // Obtener el item del local storage por el id
+    const item = getItemById(id);
+
+    // Toggle la propiedad checked del item
+    item.favorite = !item.favorite;
+
+    // Guardar el item actualizado en el local storage
+    saveItem(item);
+
+    counterDoneList();
+  }
   function getItemById(id) {
     // Obtener el objeto almacenado actualmente en el localStorage
     var storedItemsJSON = localStorage.getItem("items");
@@ -80,6 +98,38 @@
 
     // Buscar el item por el id
     return storedItems.find((item) => item.id === id) || {};
+  }
+  function removeItem(button) {
+    // Obtener el elemento padre (listItem) del botón
+    var listItem = button.parentNode.parentNode.parentNode;
+    const id = listItem.getAttribute("data-id");
+
+    // Eliminar el elemento del DOM
+    listItem.parentNode.removeChild(listItem);
+
+    // Obtener el índice del item del local storage por el id
+    const index = getIndexById(id);
+
+    // Obtener los elementos del Local Storage
+    var items = JSON.parse(localStorage.getItem("items"));
+
+    // Eliminar el elemento del array de items
+    items.splice(index, 1);
+
+    // Actualizar el Local Storage con los nuevos items
+    localStorage.setItem("items", JSON.stringify(items));
+    counterDoneList();
+  }
+
+  // Función para obtener el índice de un item por su id
+  function getIndexById(id) {
+    var items = JSON.parse(localStorage.getItem("items"));
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].id === id) {
+        return i;
+      }
+    }
+    return -1; // Retorna -1 si no se encuentra el elemento
   }
 
   function saveItem(item) {
@@ -204,10 +254,24 @@
   }
 
   function editText(button) {
+    // Obtener el id del item padre
+    const id =
+      button.parentNode.parentNode.parentNode.parentNode.getAttribute(
+        "data-id"
+      );
     const elemento = button.parentNode;
     const textEdit =
       elemento.parentNode.querySelector(".form-edit__text").value;
     elemento.parentNode.textContent = textEdit;
+
+    // Obtener el item del local storage por el id
+    const item = getItemById(id);
+
+    // Texto editado del item
+    item.title = textEdit;
+
+    // Guardar el item actualizado en el local storage
+    saveItem(item);
   }
 
   function toggleDropdown(button) {
@@ -241,7 +305,13 @@
     return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
   }
 
-  function CreateItem({ text = "default", checked = false }) {
+  function CreateItem({
+    text = "default",
+    checked = false,
+    favorite = false,
+    itemDate = "defalut",
+    itemId = "default",
+  }) {
     var dropdownController = new DropdownController();
     // Crear la estructura de elementos utilizando JavaScript
     const listContainer = document.querySelector(".list");
@@ -249,8 +319,8 @@
     const listItem = document.createElement("li");
     listItem.classList.add("list__li");
 
-    const itemDate = Date.now();
-    const itemId = generateId();
+    itemDate = Date.now();
+    itemId = generateId();
 
     listItem.setAttribute("data-date", itemDate);
     listItem.setAttribute("data-id", itemId);
@@ -349,7 +419,7 @@
 
     const spanEdit = document.createElement("span");
     spanEdit.classList.add("item__txt");
-    spanEdit.textContent = "Editar";
+    // spanEdit.textContent = "Editar";
 
     const buttonRemove = document.createElement("button");
     buttonRemove.setAttribute("type", "button");
@@ -377,32 +447,20 @@
 
     const spanRemove = document.createElement("span");
     spanRemove.classList.add("item__txt");
-    spanRemove.textContent = "Eliminar";
+    // spanRemove.textContent = "Eliminar";
     // Agregar función al botón de eliminación
     buttonRemove.onclick = function () {
-      // Obtener el elemento padre (listItem) del botón
-      var listItem = buttonRemove.closest(".list__li");
-
-      // Eliminar el elemento del DOM
-      listItem.parentNode.removeChild(listItem);
-
-      // Obtener el índice del elemento en el Local Storage
-      var index = localStorage.getItem("index");
-
-      // Obtener los elementos del Local Storage
-      var items = JSON.parse(localStorage.getItem("items"));
-
-      // Eliminar el elemento del array de items
-      items.splice(index, 1);
-
-      // Actualizar el Local Storage con los nuevos items
-      localStorage.setItem("items", JSON.stringify(items));
+      removeItem(buttonRemove);
     };
 
     const buttonFavorite = document.createElement("button");
     buttonFavorite.setAttribute("type", "button");
     buttonFavorite.setAttribute("aria-label", "Favorite item");
     buttonFavorite.classList.add("action__favorite");
+
+    buttonFavorite.onclick = function () {
+      onclickFavorite(button);
+    };
 
     const svgFavorite = document.createElementNS(
       "http://www.w3.org/2000/svg",
@@ -423,25 +481,22 @@
     svgFavorite.appendChild(pathFavorite);
     buttonFavorite.appendChild(svgFavorite);
 
-    const spanFavorite = document.createElement("span");
-    spanFavorite.classList.add("item__txt");
-    spanFavorite.textContent = "Favorito";
-
-    buttonFavorite.appendChild(spanFavorite);
-    divDropdown.appendChild(buttonFavorite);
-
     buttonRemove.appendChild(spanRemove);
     divDropdown.appendChild(buttonRemove);
     buttonEdit.appendChild(spanEdit);
     divDropdown.appendChild(buttonEdit);
+    divActions.appendChild(buttonFavorite);
+    divActions.appendChild(buttonEdit);
+    divActions.appendChild(buttonRemove);
     divActions.appendChild(buttonToggle);
     divActions.appendChild(divDropdown);
     itemContainer.appendChild(button);
     itemContainer.appendChild(spanText);
     itemContainer.appendChild(divActions);
     listItem.appendChild(itemContainer);
-    listContainer.appendChild(listItem);
+    listContainer.insertBefore(listItem, listContainer.firstChild);
 
+    //orderList();
     limpiarValorInput();
 
     // Guardar los datos en el Local Storage
@@ -450,6 +505,7 @@
       id: itemId,
       date: itemDate,
       checked: checked,
+      favorite: favorite,
     };
     const items = JSON.parse(localStorage.getItem("items")) || [];
     items.push(itemData);
@@ -461,12 +517,25 @@
     const items = JSON.parse(localStorage.getItem("items")) || [];
 
     if (items.length > 0) {
+      // Ordenar por favorite (favoritos primero) y luego por date
+      items.sort(function (a, b) {
+        // Ordenar por favorite (favoritos primero)
+        if (a.favorite && !b.favorite) {
+          return -1;
+        } else if (!a.favorite && b.favorite) {
+          return 1;
+        }
+
+        // Si los favoritos son iguales o ambos no son favoritos, ordenar por date
+        return b.date - a.date;
+      });
       const listContainer = document.querySelector(".list");
       const doneListContainer = document.querySelector(".list--done");
 
       items.forEach(function (item) {
         const listItem = document.createElement("li");
         listItem.classList.add("list__li");
+        item.favorite ? listItem.classList.add("favorited") : null;
 
         listItem.setAttribute("data-date", item.date);
         listItem.setAttribute("data-id", item.id);
@@ -567,7 +636,7 @@
 
         const spanEdit = document.createElement("span");
         spanEdit.classList.add("item__txt");
-        spanEdit.textContent = "Editar";
+        // spanEdit.textContent = "Editar";
 
         const buttonRemove = document.createElement("button");
         buttonRemove.setAttribute("type", "button");
@@ -595,34 +664,19 @@
 
         const spanRemove = document.createElement("span");
         spanRemove.classList.add("item__txt");
-        spanRemove.textContent = "Eliminar";
+        // spanRemove.textContent = "Eliminar";
         // Agregar función al botón de eliminación
         buttonRemove.onclick = function () {
-          // Obtener el elemento padre (listItem) del botón
-          var listItem = buttonRemove.closest(".list__li");
-
-          // Eliminar el elemento del DOM
-          listItem.parentNode.removeChild(listItem);
-
-          // Obtener el índice del elemento en el Local Storage
-          var index = localStorage.getItem("index");
-
-          // Obtener los elementos del Local Storage
-          var items = JSON.parse(localStorage.getItem("items"));
-
-          // Eliminar el elemento del array de items
-          items.splice(index, 1);
-
-          // Actualizar el Local Storage con los nuevos items
-          localStorage.setItem("items", JSON.stringify(items));
-
-          counterDoneList();
+          removeItem(buttonRemove);
         };
 
         const buttonFavorite = document.createElement("button");
         buttonFavorite.setAttribute("type", "button");
         buttonFavorite.setAttribute("aria-label", "Favorite item");
         buttonFavorite.classList.add("action__favorite");
+        buttonFavorite.onclick = function () {
+          onclickFavorite(button);
+        };
 
         const svgFavorite = document.createElementNS(
           "http://www.w3.org/2000/svg",
@@ -643,17 +697,14 @@
         svgFavorite.appendChild(pathFavorite);
         buttonFavorite.appendChild(svgFavorite);
 
-        const spanFavorite = document.createElement("span");
-        spanFavorite.classList.add("item__txt");
-        spanFavorite.textContent = "Favorito";
-
-        buttonFavorite.appendChild(spanFavorite);
-        divDropdown.appendChild(buttonFavorite);
-
         buttonRemove.appendChild(spanRemove);
         divDropdown.appendChild(buttonRemove);
         buttonEdit.appendChild(spanEdit);
         divDropdown.appendChild(buttonEdit);
+        divActions.appendChild(buttonFavorite);
+        divActions.appendChild(buttonEdit);
+        divActions.appendChild(buttonRemove);
+        divActions.appendChild(buttonRemove);
         divActions.appendChild(buttonToggle);
         divActions.appendChild(divDropdown);
         itemContainer.appendChild(button);
@@ -669,19 +720,6 @@
       });
       counterDoneList();
     }
-  }
-
-  // Llamar a la función de almacenamiento local fuera de la función CreateItem
-  function saveToLocalStorage(text, checked) {
-    const itemData = {
-      title: text,
-      id: generateId(),
-      date: Date.now(),
-      checked: checked,
-    };
-    const items = JSON.parse(localStorage.getItem("items")) || [];
-    items.push(itemData);
-    localStorage.setItem("items", JSON.stringify(items));
   }
 
   //Events

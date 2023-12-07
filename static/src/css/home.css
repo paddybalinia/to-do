@@ -79,6 +79,7 @@ input {
   margin: 0 auto;
   max-width: 1260px;
   position: relative;
+  padding: 0 20px;
   width: 100%;
 }
 .row__container {
@@ -262,10 +263,10 @@ input {
       -ms-flex-align: center;
           align-items: center;
   gap: 20px;
-  padding-top: 20px;
+  padding: 20px 20px 0;
 }
 .header__svg {
-  width: 300px;
+  width: 190px;
 }
 
 .form {
@@ -285,10 +286,14 @@ input {
       align-content: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  width: 100%;
+  max-width: 870px;
 }
 .form__text {
   border: 0;
-  width: 740px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 .form__icon {
   width: 22px;
@@ -311,7 +316,7 @@ input {
   background: white;
   -webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
           box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
-  padding: 17px 15px 15px;
+  padding: 17px 5px 15px 15px;
   border-radius: 4px;
   gap: 8px;
   display: -webkit-box;
@@ -411,6 +416,7 @@ input {
       -ms-flex-align: center;
           align-items: center;
   width: 30px;
+  display: none;
 }
 .item__toggle__dots {
   border-radius: 125px;
@@ -418,6 +424,26 @@ input {
   display: inline-block;
   height: 4px;
   width: 4px;
+}
+
+.action__remove,
+.action__edit,
+.action__favorite {
+  width: 40px;
+}
+.action__remove svg,
+.action__edit svg,
+.action__favorite svg {
+  width: 20px;
+}
+
+.item__actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 .box-done {
@@ -437,6 +463,10 @@ input {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 15px;
+}
+
+.list__li.favorited .action__favorite {
+  fill: #ff9800;
 }
 
 .form-edit {

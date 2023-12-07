@@ -15,10 +15,14 @@
       align-content: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  width: 100%;
+  max-width: 870px;
 }
 .form__text {
   border: 0;
-  width: 740px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 .form__icon {
   width: 22px;
