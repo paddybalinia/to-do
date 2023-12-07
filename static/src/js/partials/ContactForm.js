@@ -89,7 +89,6 @@
 
     counterDoneList();
   }
-
   function getItemById(id) {
     // Obtener el objeto almacenado actualmente en el localStorage
     var storedItemsJSON = localStorage.getItem("items");
@@ -99,6 +98,38 @@
 
     // Buscar el item por el id
     return storedItems.find((item) => item.id === id) || {};
+  }
+  function removeItem(button) {
+    // Obtener el elemento padre (listItem) del botón
+    var listItem = button.parentNode.parentNode.parentNode;
+    const id = listItem.getAttribute("data-id");
+
+    // Eliminar el elemento del DOM
+    listItem.parentNode.removeChild(listItem);
+
+    // Obtener el índice del item del local storage por el id
+    const index = getIndexById(id);
+
+    // Obtener los elementos del Local Storage
+    var items = JSON.parse(localStorage.getItem("items"));
+
+    // Eliminar el elemento del array de items
+    items.splice(index, 1);
+
+    // Actualizar el Local Storage con los nuevos items
+    localStorage.setItem("items", JSON.stringify(items));
+    counterDoneList();
+  }
+
+  // Función para obtener el índice de un item por su id
+  function getIndexById(id) {
+    var items = JSON.parse(localStorage.getItem("items"));
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].id === id) {
+        return i;
+      }
+    }
+    return -1; // Retorna -1 si no se encuentra el elemento
   }
 
   function saveItem(item) {
@@ -388,7 +419,7 @@
 
     const spanEdit = document.createElement("span");
     spanEdit.classList.add("item__txt");
-    spanEdit.textContent = "Editar";
+    // spanEdit.textContent = "Editar";
 
     const buttonRemove = document.createElement("button");
     buttonRemove.setAttribute("type", "button");
@@ -416,26 +447,10 @@
 
     const spanRemove = document.createElement("span");
     spanRemove.classList.add("item__txt");
-    spanRemove.textContent = "Eliminar";
+    // spanRemove.textContent = "Eliminar";
     // Agregar función al botón de eliminación
     buttonRemove.onclick = function () {
-      // Obtener el elemento padre (listItem) del botón
-      var listItem = buttonRemove.closest(".list__li");
-
-      // Eliminar el elemento del DOM
-      listItem.parentNode.removeChild(listItem);
-
-      // Obtener el índice del elemento en el Local Storage
-      var index = localStorage.getItem("index");
-
-      // Obtener los elementos del Local Storage
-      var items = JSON.parse(localStorage.getItem("items"));
-
-      // Eliminar el elemento del array de items
-      items.splice(index, 1);
-
-      // Actualizar el Local Storage con los nuevos items
-      localStorage.setItem("items", JSON.stringify(items));
+      removeItem(buttonRemove);
     };
 
     const buttonFavorite = document.createElement("button");
@@ -471,14 +486,17 @@
     buttonEdit.appendChild(spanEdit);
     divDropdown.appendChild(buttonEdit);
     divActions.appendChild(buttonFavorite);
+    divActions.appendChild(buttonEdit);
+    divActions.appendChild(buttonRemove);
     divActions.appendChild(buttonToggle);
     divActions.appendChild(divDropdown);
     itemContainer.appendChild(button);
     itemContainer.appendChild(spanText);
     itemContainer.appendChild(divActions);
     listItem.appendChild(itemContainer);
-    listContainer.appendChild(listItem);
+    listContainer.insertBefore(listItem, listContainer.firstChild);
 
+    //orderList();
     limpiarValorInput();
 
     // Guardar los datos en el Local Storage
@@ -499,6 +517,18 @@
     const items = JSON.parse(localStorage.getItem("items")) || [];
 
     if (items.length > 0) {
+      // Ordenar por favorite (favoritos primero) y luego por date
+      items.sort(function (a, b) {
+        // Ordenar por favorite (favoritos primero)
+        if (a.favorite && !b.favorite) {
+          return -1;
+        } else if (!a.favorite && b.favorite) {
+          return 1;
+        }
+
+        // Si los favoritos son iguales o ambos no son favoritos, ordenar por date
+        return b.date - a.date;
+      });
       const listContainer = document.querySelector(".list");
       const doneListContainer = document.querySelector(".list--done");
 
@@ -606,7 +636,7 @@
 
         const spanEdit = document.createElement("span");
         spanEdit.classList.add("item__txt");
-        spanEdit.textContent = "Editar";
+        // spanEdit.textContent = "Editar";
 
         const buttonRemove = document.createElement("button");
         buttonRemove.setAttribute("type", "button");
@@ -634,28 +664,10 @@
 
         const spanRemove = document.createElement("span");
         spanRemove.classList.add("item__txt");
-        spanRemove.textContent = "Eliminar";
+        // spanRemove.textContent = "Eliminar";
         // Agregar función al botón de eliminación
         buttonRemove.onclick = function () {
-          // Obtener el elemento padre (listItem) del botón
-          var listItem = buttonRemove.closest(".list__li");
-
-          // Eliminar el elemento del DOM
-          listItem.parentNode.removeChild(listItem);
-
-          // Obtener el índice del elemento en el Local Storage
-          var index = localStorage.getItem("index");
-
-          // Obtener los elementos del Local Storage
-          var items = JSON.parse(localStorage.getItem("items"));
-
-          // Eliminar el elemento del array de items
-          items.splice(index, 1);
-
-          // Actualizar el Local Storage con los nuevos items
-          localStorage.setItem("items", JSON.stringify(items));
-
-          counterDoneList();
+          removeItem(buttonRemove);
         };
 
         const buttonFavorite = document.createElement("button");
@@ -690,6 +702,9 @@
         buttonEdit.appendChild(spanEdit);
         divDropdown.appendChild(buttonEdit);
         divActions.appendChild(buttonFavorite);
+        divActions.appendChild(buttonEdit);
+        divActions.appendChild(buttonRemove);
+        divActions.appendChild(buttonRemove);
         divActions.appendChild(buttonToggle);
         divActions.appendChild(divDropdown);
         itemContainer.appendChild(button);
@@ -706,19 +721,6 @@
       counterDoneList();
     }
   }
-
-  // Llamar a la función de almacenamiento local fuera de la función CreateItem
-  // function saveToLocalStorage(text, checked) {
-  //   const itemData = {
-  //     title: text,
-  //     id: generateId(),
-  //     date: Date.now(),
-  //     checked: checked,
-  //   };
-  //   const items = JSON.parse(localStorage.getItem("items")) || [];
-  //   items.push(itemData);
-  //   localStorage.setItem("items", JSON.stringify(items));
-  // }
 
   //Events
   function onSubmit() {

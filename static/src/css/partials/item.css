@@ -2,7 +2,7 @@
   background: white;
   -webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
           box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
-  padding: 17px 15px 15px;
+  padding: 17px 5px 15px 15px;
   border-radius: 4px;
   gap: 8px;
   display: -webkit-box;
@@ -102,6 +102,7 @@
       -ms-flex-align: center;
           align-items: center;
   width: 30px;
+  display: none;
 }
 .item__toggle__dots {
   border-radius: 125px;
@@ -111,7 +112,14 @@
   width: 4px;
 }
 
+.action__remove,
+.action__edit,
 .action__favorite {
+  width: 40px;
+}
+.action__remove svg,
+.action__edit svg,
+.action__favorite svg {
   width: 20px;
 }
 
