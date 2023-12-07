@@ -103,20 +103,22 @@
     }
 }
 
+.action {
 
-.action__remove,
-.action__edit,
-.action__favorite {
-    width: 40px;
+    &__remove,
+    &__edit,
+    &__favorite {
+        width: 40px;
 
-    svg {
-        width: 20px;
+        svg {
+            width: 20px;
+        }
     }
-}
 
-.item__actions {
-    display: flex;
-    align-items: flex-start;
+    &__actions {
+        display: flex;
+        align-items: flex-start;
+    }
 }
 
 .box-done {
