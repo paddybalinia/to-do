@@ -63,6 +63,7 @@
             visibility: hidden;
             position: absolute;
             top: 0;
+            transition: $transition;
         }
 
         &__done {
@@ -75,13 +76,22 @@
             visibility: visible;
             opacity: 1;
         }
+
+        &:hover,
+        &.checked {
+
+            .item__icon__check {
+                background: #2eb0fc;
+                border-color: #2eb0fc;
+                fill: white
+            }
+        }
     }
 
     &__text {
         flex: 1;
-        font-size: 16px;
-        line-height: 20px;
-        font-weight: 300;
+
+        font: 300 16px/20px $font-primary;
     }
 
     &__toggle {
@@ -159,7 +169,7 @@
     }
 
     &__save {
-        background: #2eb0fc;
+        background: $color-secondary;
         color: #fff;
         font-weight: 700;
         padding: 8px 14px 6px;

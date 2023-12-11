@@ -27,6 +27,10 @@
 .form__icon {
   width: 22px;
   height: 22px;
+  border-radius: 125px;
+  background: white;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
 }
 .form__add {
   background: #2eb0fc;
@@ -35,6 +39,18 @@
   padding: 8px 14px 6px;
   border-radius: 4px;
   text-transform: uppercase;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.form.focus .form__add {
+  visibility: visible;
+  opacity: 1;
+}
+.form.focus .form__icon {
+  background: #2eb0fc;
+  fill: white;
 }
 .form__icon {
   position: relative;
