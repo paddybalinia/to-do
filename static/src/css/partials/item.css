@@ -72,6 +72,8 @@
   visibility: hidden;
   position: absolute;
   top: 0;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
 }
 .item__icon__done {
   opacity: 1;
@@ -81,13 +83,16 @@
   visibility: visible;
   opacity: 1;
 }
+.item__icon:hover .item__icon__check, .item__icon.checked .item__icon__check {
+  background: #2eb0fc;
+  border-color: #2eb0fc;
+  fill: white;
+}
 .item__text {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 300;
+  font: 300 16px/20px "Sharp Grotesk", sans-serif;
 }
 .item__toggle {
   display: -webkit-box;

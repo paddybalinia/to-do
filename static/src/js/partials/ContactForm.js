@@ -36,8 +36,22 @@
   function Constructor() {
     FormContacto.addEventListener("submit", onSubmit, false);
     checkLocalStorageAndCreateContent();
+    focusInput();
   }
 
+  function focusInput() {
+    var miInput = document.querySelector(".form__text");
+
+    // Añadir un evento para detectar el foco
+    miInput.addEventListener("focus", function () {
+      FormContacto.classList.add("focus");
+    });
+
+    // Añadir un evento para detectar la pérdida de foco
+    miInput.addEventListener("blur", function () {
+      FormContacto.classList.remove("focus");
+    });
+  }
   function obtenerValorInput() {
     // Obtener el valor del input por su id
     var valorInput = FormContacto.querySelector(".form__text").value;
