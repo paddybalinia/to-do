@@ -22,11 +22,38 @@ npm run build
 ```
 
 
-**Features To Do App:**
+     
+ 
+
+
+<!--
+> [!NOTE]
+> Features To Do App
+
+> [!TIP]
+> Features To Do App
+
+> [!IMPORTANT]
+> Features To Do App
+
+> [!WARNING]
+> Features To Do App
+
+> [!CAUTION]
+> Features To Do App
+-->
+
+
+
+
+
+&nbsp;
+
+> [!NOTE]
+> Features **To Do** App
+
 - Ability to add a task with a title
 - Ability to mark a task as completed
 - Ability to delete a task
 - Data persistence (tasks remain after refreshing the browser)
 - Mark a task as a favorite
-
-
