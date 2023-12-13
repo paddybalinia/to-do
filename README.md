@@ -3,7 +3,12 @@ To-do app for the browser that allows us to see the tasks we have pending, we ca
 
 
 
-## About how install the proyect:
+&nbsp;
+
+> [!TIP]
+> About how install the proyect:
+>
+&nbsp;
 ```
 npm install
 ```
