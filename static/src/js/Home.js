@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Controlador para la funcionalidad de la lista de tareas.
+ * @description Este archivo contiene el código JavaScript que controla la funcionalidad de la lista de tareas.
+ * @module Todo
+ * @author Patricio Baliña
+ */
 (function (window, document) {
   "use strict";
 
@@ -7,7 +13,21 @@
     return;
   }
 
-  // Constructor para toggleDropdown
+  /**
+   * Constructor function for the Todo class.
+   * Initializes the Todo object and sets up event listeners.
+   */
+  function Constructor() {
+    FormContacto.addEventListener("submit", onSubmit, false);
+    checkLocalStorageAndCreateContent();
+    focusInput();
+  }
+
+  /**
+   * @class
+   * @classdesc Controlador para el dropdown.
+   * @constructor
+   */
   function DropdownController() {
     var dropdownActive = null;
 
@@ -33,12 +53,9 @@
     };
   }
 
-  function Constructor() {
-    FormContacto.addEventListener("submit", onSubmit, false);
-    checkLocalStorageAndCreateContent();
-    focusInput();
-  }
-
+  /**
+   * Función que se encarga de establecer el enfoque en el input.
+   */
   function focusInput() {
     var miInput = document.querySelector(".form__text");
 
@@ -52,19 +69,36 @@
       FormContacto.classList.remove("focus");
     });
   }
+
+  /**
+   * Obtiene el valor del input.
+   * @returns {string} El valor del input.
+   */
   function obtenerValorInput() {
-    // Obtener el valor del input por su id
     var valorInput = FormContacto.querySelector(".form__text").value;
 
     return valorInput;
   }
+
+  /**
+   * Limpia el valor del input.
+   */
   function limpiarValorInput() {
-    // Obtener el valor del input
     var valorInput = FormContacto.querySelector(".form__text");
 
     valorInput.value = "";
   }
 
+  /**
+   * Función que se ejecuta al hacer clic en el botón de la lista de tareas completadas.
+   * Si el botón tiene la clase "checked", se elimina de la lista de tareas completadas.
+   * Si no tiene la clase "checked", se mueve a la lista de tareas completadas.
+   * Luego, se obtiene el id del elemento padre del botón.
+   * A continuación, se obtiene el elemento del almacenamiento local por su id.
+   * Se cambia el valor de la propiedad "checked" del elemento.
+   * Finalmente, se guarda el elemento actualizado en el almacenamiento local y se actualiza el contador de la lista de tareas completadas.
+   * @param {HTMLElement} button - El botón en el que se hizo clic.
+   */
   function onclickDoneList(button) {
     button.classList.contains("checked")
       ? removeDoneList(button)
@@ -85,6 +119,12 @@
     counterDoneList();
   }
 
+  /**
+   * Función que se ejecuta al hacer clic en el botón de favorito.
+   * Cambia el estado de favorito del elemento y actualiza el local storage.
+   *
+   * @param {HTMLElement} button - El botón que se ha hecho clic.
+   */
   function onclickFavorite(button) {
     // Obtener el id del item padre
     const itemLi = button.closest(".list__li");
@@ -103,6 +143,13 @@
 
     counterDoneList();
   }
+
+  /**
+   * Obtiene un elemento por su id del localStorage.
+   *
+   * @param {string} id - El id del elemento a buscar.
+   * @returns {object} - El objeto encontrado o un objeto vacío si no se encuentra.
+   */
   function getItemById(id) {
     // Obtener el objeto almacenado actualmente en el localStorage
     var storedItemsJSON = localStorage.getItem("items");
@@ -113,6 +160,12 @@
     // Buscar el item por el id
     return storedItems.find((item) => item.id === id) || {};
   }
+
+  /**
+   * Removes an item from the todo list.
+   *
+   * @param {HTMLElement} button - The button element that triggered the removal.
+   */
   function removeItem(button) {
     // Obtener el elemento padre (listItem) del botón
     var listItem = button.parentNode.parentNode.parentNode;
@@ -136,6 +189,11 @@
   }
 
   // Función para obtener el índice de un item por su id
+  /**
+   * Obtiene el índice de un elemento por su id en el almacenamiento local.
+   * @param {string} id - El id del elemento a buscar.
+   * @returns {number} - El índice del elemento en el arreglo o -1 si no se encuentra.
+   */
   function getIndexById(id) {
     var items = JSON.parse(localStorage.getItem("items"));
     for (var i = 0; i < items.length; i++) {
@@ -146,6 +204,10 @@
     return -1; // Retorna -1 si no se encuentra el elemento
   }
 
+  /**
+   * Guarda un elemento en el localStorage.
+   * @param {Object} item - El elemento a guardar.
+   */
   function saveItem(item) {
     // Obtener el array de objetos almacenados actualmente en el localStorage
     var storedItemsJSON = localStorage.getItem("items");
@@ -173,6 +235,9 @@
     localStorage.setItem("items", updatedItemsJSON);
   }
 
+  /**
+   * Updates the counter for the done list.
+   */
   function counterDoneList() {
     var totalElement = document.querySelector(".box-done__total");
     var totalList = document.querySelectorAll(".list--done .list__li");
@@ -180,6 +245,10 @@
     totalElement.innerText = totalList.length;
   }
 
+  /**
+   * Mueve un elemento de la lista de tareas pendientes a la lista de tareas completadas.
+   * @param {HTMLElement} button - El botón que se ha clicado para mover el elemento.
+   */
   function moveToDoneList(button) {
     button.classList.add("checked");
     // Obtener el <li> padre del botón clickeado
@@ -200,6 +269,10 @@
     totalElement.innerText = newNumber;
   }
 
+  /**
+   * Removes the done list item from the DOM and updates the total count.
+   * @param {HTMLElement} button - The button element clicked.
+   */
   function removeDoneList(button) {
     button.classList.remove("checked");
     // Obtener el <li> padre del botón clickeado
@@ -221,9 +294,9 @@
   }
 
   /**
-   * Generates an edit form for a given button.
+   * Generates the edit form for a todo item.
    *
-   * @param {HTMLElement} button - The button element that triggers the edit form generation.
+   * @param {HTMLElement} button - The button element that triggered the edit action.
    */
   function generateEdit(button) {
     const textElement =
@@ -267,6 +340,11 @@
     textAreaAdjust(textElement.querySelector(".form-edit__text"));
   }
 
+  /**
+   * Edits the text of a todo item.
+   *
+   * @param {HTMLElement} button - The button element that triggered the edit action.
+   */
   function editText(button) {
     // Obtener el id del item padre
     const id =
@@ -288,6 +366,11 @@
     saveItem(item);
   }
 
+  /**
+   * Toggles the dropdown visibility for a given button.
+   *
+   * @param {HTMLElement} button - The button element that triggers the dropdown.
+   */
   function toggleDropdown(button) {
     // Obtener el elemento padre (item) del botón
     var itemElement = button.closest(".item");
@@ -310,15 +393,34 @@
       }
     });
   }
+
+  /**
+   * A function that adjusts the height of a textarea element based on its content.
+   * @param {HTMLElement} element - The textarea element to adjust.
+   */
   function textAreaAdjust(element) {
     element.style.height = "1px";
     element.style.height = 25 + element.scrollHeight + "px";
   }
 
+  /**
+   * Generates a unique ID for a todo item.
+   * @returns {string} The generated ID.
+   */
   function generateId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
   }
 
+  /**
+   * Creates a new item in the to-do list.
+   *
+   * @param {Object} options - The options for creating the item.
+   * @param {string} options.text - The text content of the item.
+   * @param {boolean} options.checked - Indicates if the item is checked or not.
+   * @param {boolean} options.favorite - Indicates if the item is marked as favorite or not.
+   * @param {string} options.itemDate - The date of the item.
+   * @param {string} options.itemId - The ID of the item.
+   */
   function CreateItem({
     text = "default",
     checked = false,
@@ -526,6 +628,9 @@
     localStorage.setItem("items", JSON.stringify(items));
   }
 
+  /**
+   * Checks the local storage for items and creates the corresponding content in the DOM.
+   */
   function checkLocalStorageAndCreateContent() {
     var dropdownController = new DropdownController();
     const items = JSON.parse(localStorage.getItem("items")) || [];
@@ -736,7 +841,14 @@
     }
   }
 
-  //Events
+  /**
+   * Handles the form submission event.
+   * Prevents the default form submission behavior.
+   * Retrieves the value from the input field.
+   * If the value is empty, returns early.
+   * Otherwise, creates a new item with the provided text.
+   * Hides the active dropdown after creating a new item.
+   */
   function onSubmit() {
     event.preventDefault();
     const textTask = obtenerValorInput();
@@ -749,5 +861,5 @@
     // Al crear un nuevo item, ocultamos el dropdown activo
   }
 
-  window.Contacto = new Constructor();
+  window.Todo = new Constructor();
 })(window, document);

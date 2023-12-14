@@ -72,13 +72,7 @@ function optimizeFonts() {
     .pipe(gulp.dest(paths.fonts.dest));
 }
 
-const jsFiles = [
-  "static/src/js/partials/ContactForm.js",
-  // "static/src/js/partials/Header.js",
-  // "static/src/js/partials/ScrollIntoView.js",
-  // "static/src/js/partials/ViewportObserver.js",
-  // "static/src/js/partials/TextTyper.js",
-];
+const jsFiles = ["static/src/js/partials/Todo.js"];
 
 function combineScripts() {
   return gulp
@@ -100,7 +94,6 @@ function watchFiles() {
   gulp.watch(jsFiles, combineScripts);
   gulp.watch(paths.scripts.src, minifyScripts);
   gulp.watch(paths.fonts.src, optimizeFonts);
-  // gulp.watch(paths.html.src, minifyHTML);
 }
 
 const buildTasks = gulp.parallel(
@@ -110,7 +103,6 @@ const buildTasks = gulp.parallel(
   optimizeImages,
   combineScripts,
   optimizeFonts
-  // minifyHTML
 );
 
 exports.build = buildTasks;
