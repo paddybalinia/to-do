@@ -1,7 +1,7 @@
 {
-  "short_name": "Tercer Espacio",
-  "name": "Tercer Espacio",
-  "description": "Sitio web personal de Tercer Espacio",
+  "short_name": "To Do",
+  "name": "To Do",
+  "description": "Sitio web personal de To Do",
   "icons": [
     {
       "src": "static/dist/images/apps/precomposed-128.png",
