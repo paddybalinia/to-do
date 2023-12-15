@@ -1,7 +1,7 @@
 .form {
-  background: white;
-  -webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
-          box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
+  background: transparent;
+  -webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0);
+          box-shadow: 0 1px 7px rgba(0, 0, 0, 0);
   padding: 10px 15px;
   border-radius: 4px;
   display: -webkit-box;
@@ -17,8 +17,12 @@
       flex-wrap: wrap;
   width: 100%;
   max-width: 870px;
+  margin: 15px auto;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
 }
 .form__text {
+  background: transparent;
   border: 0;
   -webkit-box-flex: 1;
       -ms-flex: 1;
@@ -28,7 +32,7 @@
   width: 22px;
   height: 22px;
   border-radius: 125px;
-  background: white;
+  background: transparent;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
 }
@@ -43,6 +47,11 @@
   opacity: 0;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
+}
+.form.focus {
+  background: white;
+  -webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 1px 7px rgba(0, 0, 0, 0.15);
 }
 .form.focus .form__add {
   visibility: visible;
