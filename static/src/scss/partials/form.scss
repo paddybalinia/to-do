@@ -1,8 +1,8 @@
 @import '../vars.scss';
 
 .form {
-    background: white;
-    box-shadow: 0 1px 7px rgb(0 0 0 / 15%);
+    background: transparent;
+    box-shadow: 0 1px 7px rgb(0 0 0 / 0%);
     padding: 10px 15px;
     border-radius: 4px;
     display: flex;
@@ -12,8 +12,11 @@
     flex-wrap: wrap;
     width: 100%;
     max-width: 870px;
+    margin: 15px auto;
+    transition: $transition;
 
     &__text {
+        background: transparent;
         border: 0;
         flex: 1;
     }
@@ -22,7 +25,7 @@
         width: 22px;
         height: 22px;
         border-radius: 125px;
-        background: white;
+        background: transparent;
         transition: $transition;
     }
 
@@ -39,6 +42,9 @@
     }
 
     &.focus {
+        background: white;
+        box-shadow: 0 1px 7px rgb(0 0 0 / 15%);
+
         .form__add {
             visibility: visible;
             opacity: 1;
