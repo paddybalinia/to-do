@@ -8,6 +8,28 @@ const autoprefixer = require("gulp-autoprefixer");
 const concat = require("gulp-concat");
 const htmlmin = require("gulp-htmlmin"); // Nuevo módulo añadido
 
+/**
+ * Object that defines the paths for different assets in the project.
+ * @type {Object}
+ * @property {Object} styles_scss - Paths for SCSS stylesheets.
+ * @property {string[]} styles_scss.src - Source paths for SCSS files.
+ * @property {string} styles_scss.dest - Destination path for compiled CSS files.
+ * @property {Object} styles_css - Paths for CSS stylesheets.
+ * @property {string} styles_css.src - Source path for CSS files.
+ * @property {string} styles_css.dest - Destination path for CSS files.
+ * @property {Object} scripts - Paths for JavaScript files.
+ * @property {string} scripts.src - Source path for JavaScript files.
+ * @property {string} scripts.dest - Destination path for JavaScript files.
+ * @property {Object} images - Paths for image files.
+ * @property {string} images.src - Source path for image files.
+ * @property {string} images.dest - Destination path for image files.
+ * @property {Object} fonts - Paths for font files.
+ * @property {string} fonts.src - Source path for font files.
+ * @property {string} fonts.dest - Destination path for font files.
+ * @property {Object} html - Paths for HTML files.
+ * @property {string} html.src - Source path for HTML files.
+ * @property {string} html.dest - Destination path for HTML files.
+ */
 const paths = {
   styles_scss: {
     src: ["static/src/scss/**/*.scss", "!static/src/scss/vars.scss"],
