@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /private/
 
-Sitemap: todo.com/sitemap.xml
+Sitemap: https://patriciobalina-todo.vercel.app/sitemap.xml
