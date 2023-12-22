@@ -16,6 +16,9 @@
   width: 140px;
   height: 80px;
 }
+.header__title {
+  font-size: 0;
+}
 
 @media (min-width: 760px) {
   .header__svg {
