@@ -6,8 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do</title>
-    <meta name="description" content="To do es una aplicación que te ayuda a organizar tus tareas. 
-        Con To do, puedes crear listas de tareas, asignar favoritas y más.">
 
     <meta property="description" content="To do es una aplicación que te ayuda a organizar tus tareas. 
         Con To do, puedes crear listas de tareas, asignar favoritas y más.">
@@ -82,10 +80,9 @@
 
     <header class="header">
         <h1 class="header__title">
-            <svg class="header__svg" width="396" height="111.65533856979722" viewBox="0 0 250 70.48948142032653"
-                class="looka-1j8o68f">
+            <svg class="header__svg" width="396" height="111.65533856979722" viewBox="0 0 250 70.48948142032653">
                 <defs id="SvgjsDefs2718"></defs>
-                <g id="SvgjsG2719" featurekey="nameFeature-0"
+                <g id="SvgjsG2719"
                     transform="matrix(2.5283170272522453,0,0,2.5283170272522453,-2.022651692848986,-31.85679068547267)"
                     fill="#000000">
                     <path
@@ -93,7 +90,7 @@
                     </path>
                 </g>
             </svg>
-
+            To do APP
         </h1>
 
     </header>
@@ -119,21 +116,36 @@
             <ul class="list--done"></ul>
         </div>
     </section>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registrado con éxito:', registration);
+                })
+                .catch(error => {
+                    console.log('Error al registrar el Service Worker:', error);
+                });
+        }
+    </script>
+
+
+    <script src="static/dist/js/Home-min.js"></script>
+    <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "Organization",
+          "name": "To do Patricio Baliña",
+          "url": "https://patriciobalina-todo.vercel.app/",
+          "logo": "https://patriciobalina-todo.vercel.app/static/dist/images/apps/twitter-summary-card.jpg",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+5491160419192",
+            "contactType": "customer service"
+          }
+        }
+        </script>
 </body>
 
-<script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js')
-            .then(registration => {
-                console.log('Service Worker registrado con éxito:', registration);
-            })
-            .catch(error => {
-                console.log('Error al registrar el Service Worker:', error);
-            });
-    }
-</script>
-
-<script src="static/dist/js/Home-min.js"></script>
 
 
 </html>

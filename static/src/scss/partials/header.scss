@@ -11,6 +11,10 @@
         width: 140px;
         height: 80px;
     }
+
+    &__title {
+        font-size: 0;
+    }
 }
 
 @media (min-width: 760px) {
