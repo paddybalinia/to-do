@@ -1,0 +1,40 @@
+@import '../vars.scss';
+
+.sidebar {
+    background: white;
+    display: none;
+    height: 100%;
+    position: absolute;
+    padding: 30px 20px;
+    width: 250px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, .09);
+
+    &__ul {
+        gap: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__svg {
+        margin: 0 10px 0 0;
+    }
+
+    &__title {
+        flex: 1;
+        font-weight: 300;
+    }
+
+    &__count {
+        margin-left: auto;
+    }
+}
+
+// @media (min-width: 760px) {
+//     .sidebar {}
+// }
