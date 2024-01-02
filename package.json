@@ -1,13 +1,12 @@
 {
   "name": "todo",
   "version": "1.0.0",
-  "description": "web",
+  "description": "todo web",
   "main": "index.js",
   "scripts": {
-    "watch": "gulp watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "gulp watch"
   },
-  "author": "",
+  "author": "Patricio Baliña",
   "license": "ISC",
   "devDependencies": {
     "gulp": "^4.0.2",
